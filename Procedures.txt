@@ -1,0 +1,175 @@
+#genericos
+
+--------------------------
+DELIMITER //
+CREATE OR REPLACE PROCEDURE LISTAR
+(IN tabla VARCHAR(50))
+BEGIN
+  SELECT * FROM tabla;
+END //
+DELIMITER ;
+
+--------------------------
+DELIMITER //
+CREATE OR REPLACE PROCEDURE ELIMINAR
+(IN tabla VARCHAR(50),IN columna VARCHAR(50),IN id INT(10))
+BEGIN
+  DELETE FROM tabla
+  WHERE columna = id;
+END//
+DELIMITER ;
+--------------------------
+
+DELIMITER @@
+CREATE OR REPLACE PROCEDURE ATENCION_ESTADO(IN ID INT,
+                                             IN ESTADO VARCHAR(45))
+BEGIN 
+     UPDATE ATENCION SET ESTATUS=ESTADO WHERE NUMEROATENCION_ID=ID;
+END @@
+DELIMITER ;
+
+----------------------------------------------
+
+
+#insertar
+
+----------------------------------------------
+
+DELIMITER @@
+CREATE OR REPLACE PROCEDURE INSERTAR_USUARIO(IN USER_ID INT,
+                                             IN RUT VARCHAR(12),
+                                             IN PASSWORD VARCHAR(8),
+                                             IN NOMBRE VARCHAR(50),
+                                             IN TIPOUSUARIO INT)
+BEGIN 
+     INSERT INTO USUARIO VALUES(USER_ID,RUT,PASSWORD,NOMBRE,CURRENT_DATE(),TIPOUSUARIO);
+END @@
+DELIMITER ;
+
+----------------------------------------------
+
+DELIMITER @@
+CREATE OR REPLACE PROCEDURE INSERTAR_ATENCION(IN NUMEROATENCION INT,
+                                              IN ESTATUS VARCHAR(45),
+                                              IN HORA INT,
+                                              IN CLIENTE INT,
+                                              IN ABOGADO INT)
+BEGIN 
+     INSERT INTO ATENCION VALUES(NUMEROATENCION,ESTATUS,CURRENT_DATE(),HORA,CLIENTE,ABOGADO);
+END @@
+DELIMITER ;
+
+----------------------------------------------
+DELIMITER @@
+CREATE OR REPLACE PROCEDURE INSERTAR_ABOGADO(IN ABOGADO_ID INT,
+                                             IN ESPECIALIDAD VARCHAR(45),
+                                             IN VALORHORA INT)
+BEGIN 
+     INSERT INTO ABOGADO VALUES(ABOGADO_ID,ESPECIALIDAD,VALORHORA,'ACTIVO');
+END @@
+DELIMITER ;
+
+----------------------------------------------
+
+DELIMITER @@
+CREATE OR REPLACE PROCEDURE INSERTAR_CLIENTE(IN CLIENTE_ID INT,
+											 IN TIPOPERSONA VARCHAR(45),
+											 IN DIRECCION VARCHAR(45),
+											 IN TELEFONO INT)
+BEGIN 
+     INSERT INTO ABOGADO VALUES(CLIENTE_ID,TIPOPERSONA,DIRECCION,TELEFONO,'ACTIVO');
+END @@
+DELIMITER ;
+
+----------------------------------------------
+
+#despedir abogado . realizada , perdida , confirmada , anulada atencion
+
+----------------------------------------------
+
+DELIMITER @@
+CREATE OR REPLACE PROCEDURE DESPEDIR_ABOGADO(IN ID INT)
+BEGIN 
+     UPDATE ABOGADO SET ESTATUS='DESPEDIDO' WHERE ABOGADO_ID_USER=ID;
+END @@
+DELIMITER ;
+
+----------------------------------------------
+
+DELIMITER @@
+CREATE OR REPLACE PROCEDURE ATENCION_REALIZADA(IN ID INT)
+BEGIN 
+     UPDATE ATENCION SET ESTATUS='REALIZADA' WHERE NUMEROATENCION_ID=ID;
+END @@
+DELIMITER ;
+
+----------------------------------------------
+
+DELIMITER @@
+CREATE OR REPLACE PROCEDURE ATENCION_PERDIDA(IN ID INT)
+BEGIN 
+     UPDATE ATENCION SET ESTATUS='PERDIDA' WHERE NUMEROATENCION_ID=ID;
+END @@
+DELIMITER ;
+
+----------------------------------------------
+
+DELIMITER @@
+CREATE OR REPLACE PROCEDURE ATENCION_CONFIRMADA(IN ID INT)
+BEGIN 
+     UPDATE ATENCION SET ESTATUS='CONFIRMADA' WHERE NUMEROATENCION_ID=ID;
+END @@
+DELIMITER ;
+
+----------------------------------------------
+
+DELIMITER @@
+CREATE OR REPLACE PROCEDURE ATENCION_ANULADA(IN ID INT)
+BEGIN 
+     UPDATE ATENCION SET ESTATUS='ANULADA' WHERE NUMEROATENCION_ID=ID;
+END @@
+DELIMITER ;
+
+----------------------------------------------
+
+#listar abogado activo, atencion agendada y confirmada
+
+----------------------------------------------
+
+DELIMITER @@
+CREATE OR REPLACE PROCEDURE LISTAR_ABOGADO_ACTIVO()
+BEGIN
+  SELECT * FROM ABOGADO WHERE ESTATUS='ACTIVO';
+END @@
+DELIMITER ;
+
+----------------------------------------------
+
+DELIMITER @@
+CREATE OR REPLACE PROCEDURE LISTAR_ATENCION_AGENDADA()
+BEGIN
+  SELECT * FROM ATENCION WHERE ESTATUS='AGENDADA';
+END @@
+DELIMITER ;
+
+----------------------------------------------
+
+DELIMITER @@
+CREATE OR REPLACE PROCEDURE LISTAR_ATENCION_CONFIRMADA()
+BEGIN
+  SELECT * FROM ATENCION WHERE ESTATUS='CONFIRMADA';
+END @@
+DELIMITER ;
+
+----------------------------------------------
+
+DELIMITER //
+CREATE OR REPLACE PROCEDURE LOGIN
+(IN ruts VARCHAR(12),
+ IN pass VARCHAR(20))
+BEGIN
+  SELECT * FROM usuario WHERE rut=ruts AND password=pass;
+END //
+DELIMITER ;
+
+----------------------------------------------
