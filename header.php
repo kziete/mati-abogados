@@ -49,81 +49,7 @@ include_once 'class/DaoUsuario.php';
     </head>
     <header>
         <?php
-
-        function menuCliente() {
-            echo '<div>';
-            echo '<ul>';
-            echo '<li>';
-            echo '<a href="cliente.php">Cliente</a>';
-            echo '</li>';
-            echo '<li>';
-            echo '<a href="Login.php">Logout</a>';
-            echo '</li>';
-            echo '</ul>';
-            echo '</div>';
-        }
-
-        function menuGerente() {
-            echo '<div>';
-            echo '<ul>';
-            echo '<li>';
-            echo '<a href="cliente.php">Cliente</a>';
-            echo '</li>';
-            echo '<li>';
-            echo '<a href="abogado.php">Abogado</a>';
-            echo '</li>';
-            echo '<li>';
-            echo '<a href="atencion.php">Atenciones</a>';
-            echo '</li>';
-            echo '<li>';
-            echo '<a href="Login.php">Logout</a>';
-            echo '</li>';
-            echo '</ul>';
-            echo '</div>';
-        }
-
-        function menuSecretaria() {
-            echo '<div>';
-            echo '<ul>';
-            echo '<li>';
-            echo '<a href="cliente.php">Cliente</a>';
-            echo '</li>';
-            echo '<li>';
-            echo '<a href="abogado.php">Abogado</a>';
-            echo '</li>';
-            echo '<li>';
-            echo '<a href="atencion.php">Atenciones</a>';
-            echo '</li>';
-            echo '<li>';
-            echo '<a href="Login.php">Logout</a>';
-            echo '</li>';
-            echo '</ul>';
-            echo '</div>';
-        }
-
-        function menuAdministrador() {
-            echo '<div>';
-            echo '<ul>';
-            echo '<li>';
-            echo '<a href="cliente.php">Cliente</a>';
-            echo '</li>';
-            echo '<li>';
-            echo '<a href="abogado.php">Abogado</a>';
-            echo '</li>';
-            echo '<li>';
-            echo '<a href="usuario.php">Usuario</a>';
-            echo '</li>';
-            echo '<li>';
-            echo '<a href="#">falle</a>';
-            echo '</li>';
-            echo '<li>';
-            echo '<a href="Login.php">Logout</a>';
-            echo '</li>';
-            echo '</ul>';
-            echo '</div>';
-        }
-
-        session_start();
+         session_start();
         if (!isset($_SESSION['userid'])) {
             header("location:Login.php");
         } else {
@@ -145,6 +71,86 @@ include_once 'class/DaoUsuario.php';
                     break;
             }
         }
+        
+        
+        function menuCliente() {
+            $user = $_SESSION['userid'];
+            echo '<div>';
+            echo '<ul>';
+            echo '<li>';
+            echo '<a href="cliente.php">Cliente</a>';
+            echo '</li>';
+            echo '<li>';
+            echo '<a href="Login.php">Logout</a>';
+            echo '</li>';
+            echo '</ul>';
+            echo '</div>';
+        }
+
+        function menuGerente() {
+            $user = $_SESSION['userid'];
+            echo '<div>';
+            echo '<ul>';
+            echo '<li>';
+            echo '<a href="cliente.php">Cliente</a>';
+            echo '</li>';
+            echo '<li>';
+            echo '<a href="abogado.php">Abogado</a>';
+            echo '</li>';
+            echo '<li>';
+            echo '<a href="atencion.php">Atenciones</a>';
+            echo '</li>';
+            echo '<li>';
+            echo '<a href="Login.php">Logout</a>';
+            echo '</li>';
+            echo '</ul>';
+            echo '</div>';
+        }
+
+        function menuSecretaria() {
+            $user = $_SESSION['userid'];
+            echo '<div>';
+            echo '<ul>';
+            echo '<li>';
+            echo '<a href="cliente.php">Cliente</a>';
+            echo '</li>';
+            echo '<li>';
+            echo '<a href="abogado.php">Abogado</a>';
+            echo '</li>';
+            echo '<li>';
+            echo '<a href="atencion.php">Atenciones</a>';
+            echo '</li>';
+            echo '<li>';
+            echo '<a href="Login.php">Logout</a>';
+            echo '</li>';
+            echo '</ul>';
+            echo '</div>';
+        }
+
+        function menuAdministrador() {
+            $user = $_SESSION['userid'];
+            echo '<div>';
+            echo '<ul>';
+            echo '<li>';
+            echo '<a href="cliente.php">Cliente</a>';
+            echo '</li>';
+            echo '<li>';
+            echo '<a href="abogado.php">Abogado</a>';
+            echo '</li>';
+            echo '<li>';
+            echo '<a href="usuario.php">Usuario</a>';
+            echo '</li>';
+            echo '<li>';
+            echo '<a href="#">'.$user->getNombre_Completo().'</a>';
+            echo '</li>';
+            echo '<li>';
+            echo '<a href="Login.php">Logout</a>';
+            echo '</li>';
+            echo '</ul>';
+            echo '</div>';
+        }
+
+       
         ?>
     </header>
 </html>

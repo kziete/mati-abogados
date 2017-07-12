@@ -1,7 +1,9 @@
 <?php
 
 include_once './class/DaoUsuario.php';
+include_once './controlador/DaoCliente.php';
 include_once './class/Cl_Usuario.php';
+include_once './class/Cl_Cliente.php';
 
 if (isset($_POST["usuario"])) {
     $accion = $_POST["usuario"];
@@ -49,6 +51,54 @@ if (isset($_POST["usuario"])) {
             break;
         case "Eliminar":
             EliminarUsuario();
+            break;
+    }
+}
+
+if (isset($_POST["cliente"])) {
+    $accion = $_POST["cliente"];
+
+    function guardarCliente() {
+        $tipoPersona = $_POST["txtTipoPersona"];
+        $direccion = $_POST["txtDireccion"];
+        $telefono = $_POST["txtTelefono"];
+
+        $dao = new DaoCliente();
+        $cliente = new Cl_Cliente();
+        $cliente->setTipoPersona($tipoPersona);
+        $cliente->setDireccion($direccion);
+        $cliente->setTelefono($telefono);
+
+        $resp = $dao->guardar($cliente);
+        if ($resp > 0) {
+            echo 'Grabado';
+        } else {
+            echo 'No grabo';
+        }
+        echo '<br>';
+        echo '<a href="cliente.php">Volver<a>';
+    }
+    
+    function eliminarCliente() {
+        $id = $_POST["txtEliminar"];
+        $dao = new DaoCliente();
+
+        $resp = $dao->eliminar($id);
+        if ($resp > 0) {
+            echo 'Eliminado';
+        } else {
+            echo 'No Existe Esa Id';
+        }
+        echo '<br>';
+        echo '<a href="cliente.php">Volver<a>';
+    }
+
+    switch ($accion) {
+        case "Guardar":
+            guardarCliente();
+            break;
+        case "Eliminar":
+            EliminarCliente();
             break;
     }
 }
