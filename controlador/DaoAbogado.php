@@ -11,27 +11,26 @@
  *
  * @author LC1300XXXX
  */
-include_once '../class/Cl_Conexion.php';
+include_once 'class/Cl_Conexion.php';
 
 class DaoAbogado {
 
     private $conexion;
 
-    function __construct() {
+     function __construct() {
         try {
-            $cone = new Cl_Conexion();
-            $this->conexion = $cone->ObtenerConexion();
+            $this->conexion = new Cl_Conexion();
         } catch (Exception $exc) {
-            $traza = new Cl_Traza($exc->getTraceAsString());
+            echo $exc->getTraceAsString();
         }
     }
     
      public function guardar($abogado) {
         try {
-            $sql = "CALL INSERTAR_ABOGADO(null,'@2',@3);";
+            $sql = "INSERT INTO ABOGADO VALUES(null,'@2',@3,'ACTIVO');";
             str_replace("@2", $abogado->getEspecialidad(), $sql);
             str_replace("@3", $abogado->getValorHora(), $sql);
-            $resp = $this->conexion->query($sql);
+            $resp = $this->conexion->sqlOperaciones($sql);
             return $resp;
         } catch (Exception $exc) {
             $traza = new Cl_Traza($exc->getTraceAsString());
@@ -40,9 +39,8 @@ class DaoAbogado {
     
     public function listar() {
         try {
-            $sql = "CALL LISTAR('@1');";
-            str_replace("@1", "abogado", $sql);
-            $resp = $this->conexion->query($sql);
+            $sql = "SELECT * FROM ABOGADO;";
+            $resp = $this->conexion->sqlSeleccion($sql);
             return $resp;
         } catch (Exception $exc) {
             $traza = new Cl_Traza($exc->getTraceAsString());
@@ -51,11 +49,8 @@ class DaoAbogado {
 
     public function eliminar($id) {
         try {
-            $sql = "CALL ELIMINAR('@1','@2','@3');";
-            str_replace("@1", "abogado", $sql);
-            str_replace("@2", "abogado_id_usuario", $sql);
-            str_replace("@3", $id, $sql);
-            $resp = $this->conexion->query($sql);
+            $sql = "DELETE FROM ABOGADO WHERE ABOGADO_ID_USER=$id;";
+            $resp = $this->conexion->sqlOperaciones($sql);
             return $resp;
         } catch (Exception $ex) {
             $traza = new Cl_Traza($exc->getTraceAsString());
@@ -64,9 +59,8 @@ class DaoAbogado {
     
     public function despedir($id) {
         try {
-            $sql = "CALL DESPEDIR_ABOGADO(@1);";
-            str_replace("@1", "$id", $sql);
-            $resp = $this->conexion->query($sql);
+            $sql = "UPDATE ABOGADO SET ESTATUS='DESPEDIDO' WHERE ABOGADO_ID_USER=$id;";
+            $resp = $this->conexion->sqlOperaciones($sql);
             return $resp;
         } catch (Exception $ex) {
             $traza = new Cl_Traza($exc->getTraceAsString());

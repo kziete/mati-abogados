@@ -38,17 +38,6 @@ class DaoCliente {
         }
     }
 
-    public function listar2() {
-        try {
-            $sql = "CALL LISTAR('@1');";
-            str_replace("@1", "cliente", $sql);
-            $resp = $this->conexion->query($sql);
-            return $resp;
-        } catch (Exception $exc) {
-            $traza = new Cl_Traza($exc->getTraceAsString());
-        }
-    }
-    
     public function listar() {
         try {
             $sql = "SELECT * FROM CLIENTE;";
