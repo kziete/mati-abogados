@@ -28,11 +28,12 @@ class DaoUsuario {
     public function guardar($usuario) {
         try {
             $sql = "INSERT INTO USUARIO VALUES(null,'@2','@3','@4',CURRENT_DATE(),@6);";
-            str_replace("@2", $usuario->getRut(), $sql);
-            str_replace("@3", $usuario->getPassword(), $sql);
-            str_replace("@4", $usuario->getNombre_completo(), $sql);
-            str_replace("@6", $usuario->getTipo_usuario(), $sql);
+            $sql = str_replace('@2', $usuario->getRut(), $sql);
+            $sql = str_replace("@3", $usuario->getPassword(), $sql);
+            $sql = str_replace("@4", $usuario->getNombre_completo(), $sql);
+            $sql = str_replace("@6", $usuario->getTipo_usuario(), $sql);
             $resp = $this->conexion->sqlOperaciones($sql);
+            echo 'sql: ' . $sql;
             return $resp;
         } catch (Exception $exc) {
             $traza = new Cl_Traza($exc->getTraceAsString());

@@ -20,12 +20,12 @@ and open the template in the editor.
         // put your code here
         ?>
         <div>
-            <div>
+            <div class="container">
                 agregar
                 <div>
-                    Agregar Cliente
+                    Agregar Usuario
                     <div>
-                        <form>
+                        <form action="proceso.php" method="post">
                             <table>
                                 <tr>
                                     <td>Rut:</td>
@@ -56,7 +56,7 @@ and open the template in the editor.
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2"><input type="submit" name="btnGuardar"></td>
+                                    <td colspan="2"><input type="submit" name="usuario" value="Guardar"></td>
                                 </tr>
                             </table>
                         </form>
@@ -104,14 +104,14 @@ and open the template in the editor.
                 <div>
                     <h4>Eliminar Usuario</h4>
                     <div>
-                        <form>
+                       <form action="proceso.php" method="post">
                             <table>
                                 <tr>
                                     <td>Rut Eliminar</td>
                                     <td><input type="text" name="txtEliminar" ></td>
                                 </tr>
                                 <tr>
-                                    <td colspan="2"><input type="submit" name="btnEliminar"></td>
+                                    <td colspan="2"><input type="submit" name="usuario" value="Eliminar"></td>
                                 </tr>
                             </table>
                         </form> 
