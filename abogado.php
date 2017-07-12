@@ -16,137 +16,146 @@ and open the template in the editor.
     <?php
     include './header.php';
     ?>
-    <body>
-        <?php
-        if ($user->getTipo_usuario() == 5) {
-            ?>
-            <div>
-                agregar
+    <header>
+        <body>
+            <?php
+            if ($user->getTipo_usuario() == 5) {
+                ?>
                 <div>
-                    Contratar Abogado
-                    <div>
-                        <form>
-                            <table>
-                                <tr>
-                                    <td>Especialidad:</td>
-                                    <td><input type="text" name="txtEspecialidad"></td>
-                                </tr>
-                                <tr>
-                                    <td>Valor Hora:</td>
-                                    <td><input type="number" name="txtValorHora"></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"><input type="submit" name="txtAgregar"></td>
-                                </tr>
-                            </table>
-                        </form>
-                    </div>
+                    <center>
+                        <div>
+                            <h4>Contratar Abogado</h4>
+                            <div>
+                                <form action="proceso.php" method="post">
+                                    <table>
+                                        <tr>
+                                            <td>Especialidad:</td>
+                                            <td><input type="text" name="txtEspecialidad" required="" class="btn-warning"></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Valor Hora:</td>
+                                            <td><input type="number" name="txtValorHora" required="" class="btn-warning"></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"><input type="submit" name="abogado" value="Guardar" class="btn-warning"></td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </div>
+                        </div>
+                    </center>
                 </div>
-            </div>
-        <?php } ?>
-        <?php
-        if ($user->getTipo_usuario() == 3 || $user->getTipo_usuario() == 4 || $user->getTipo_usuario() == 5) {
-            ?>
-            <div>
-                listar
-                <div>
-                    <h4>Listar Abogado</h4>
-                    <div>
-                        <?php
-                        $dao = new DaoAbogado();
-                        $resultado = $dao->listar();
-                        if ($resultado != null) {
-                            echo '<table border="1">';
-                            echo '<tr>';
-                            echo '<td>Id:</td>';
-                            echo '<td>Especialida:</td>';
-                            echo '<td>Valor Hora:</td>';
-                            echo '<td>Estatus:</td>';
-                            echo '</tr>';
-                            while ($row = mysqli_fetch_array($resultado)) {
-                                echo '<tr>';
-                                echo '<td>' . $row[0] . '</td>';
-                                echo '<td>' . $row[1] . '</td>';
-                                echo '<td>' . $row[2] . '</td>';
-                                echo '<td>' . $row[3] . '</td>';
-                                echo '</tr>';
-                            }
-                        } else {
-                            echo'<h4>no hay Abogados</h4>';
-                        }
-                        ?>
-                    </div>
-                </div>
-            </div>
-            <div>
             <?php } ?>
             <?php
             if ($user->getTipo_usuario() == 3 || $user->getTipo_usuario() == 4 || $user->getTipo_usuario() == 5) {
                 ?>
-                buscar
                 <div>
-                    <h4>Consultar Abogado</h4>
-                    <div>
-                        <form>
-                            <table>
-                                <tr>
-                                    <td>Id Abogado</td>
-                                    <td><input type="text" name="txtConsultar" ></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"><input type="submit" name="btnConsultar"></td>
-                                </tr>
-                            </table>
-                        </form> 
-                    </div>
+                    <center>
+                        <div>
+                            <h4>Listar Abogado</h4>
+                            <div>
+                                <table>
+                                    <?php
+                                    $dao = new DaoAbogado();
+                                    $resultado = $dao->listar();
+                                    if ($resultado != null) {
+                                        echo '<table border="1">';
+                                        echo '<tr>';
+                                        echo '<td>Id:</td>';
+                                        echo '<td>Especialida:</td>';
+                                        echo '<td>Valor Hora:</td>';
+                                        echo '<td>Estatus:</td>';
+                                        echo '</tr>';
+                                        while ($row = mysqli_fetch_array($resultado)) {
+                                            echo '<tr>';
+                                            echo '<td>' . $row[0] . '</td>';
+                                            echo '<td>' . $row[1] . '</td>';
+                                            echo '<td>' . $row[2] . '</td>';
+                                            echo '<td>' . $row[3] . '</td>';
+                                            echo '</tr>';
+                                        }
+                                    } else {
+                                        echo'<h4>no hay Abogados</h4>';
+                                    }
+                                    ?>
+                                </table>
+                            </div>
+                        </div>
+                    </center>
                 </div>
-            </div>
-        <?php } ?>
-        <?php
-        if ($user->getTipo_usuario() == 5) {
-            ?>
-            <div>
-                eliminar
                 <div>
-                    <h4>Eliminar Abogado</h4>
-                    <div>
-                        <form>
-                            <table>
-                                <tr>
-                                    <td>Id Eliminar</td>
-                                    <td><input type="text" name="txtEliminar" ></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"><input type="submit" name="btnEliminar"></td>
-                                </tr>
-                            </table>
-                        </form> 
-                    </div>
+                <?php } ?>
+                <?php
+                if ($user->getTipo_usuario() == 3 || $user->getTipo_usuario() == 4 || $user->getTipo_usuario() == 5) {
+                    ?>
+                    <center>
+                        <div>
+                            <h4>Consultar Abogado</h4>
+                            <div>
+                                <form action="proceso.php" method="post">
+                                    <table>
+                                        <tr>
+                                            <td>Id Abogado</td>
+                                            <td><input type="text" name="txtConsultar" class="btn-warning"></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"><input type="submit" name="abogado" value="Consultar" class="btn-warning"></td>
+                                        </tr>
+                                    </table>
+                                </form> 
+                            </div>
+                        </div>
+                    </center>
                 </div>
-            </div>
-        <?php } ?>
-        <?php
-        if ($user->getTipo_usuario() == 5) {
-            ?>
-            <div>
-                update
+            <?php } ?>
+            <?php
+            if ($user->getTipo_usuario() == 5) {
+                ?>
                 <div>
-                    <h4>Despedir Abogado</h4>
-                    <div>
-                        <form>
-                            <table>
-                                <tr>
-                                    <td>Id Despedir</td>
-                                    <td><input type="text" name="txtDespedir" ></td>
-                                </tr>
-                                <tr>
-                                    <td colspan="2"><input type="submit" name="btnDespedir"></td>
-                                </tr>
-                            </table>
-                        </form> 
-                    </div>
+                    <center>
+                        <div>
+                            <h4>Eliminar Abogado</h4>
+                            <div>
+                                <form action="proceso.php" method="post">
+                                    <table>
+                                        <tr>
+                                            <td>Id Eliminar</td>
+                                            <td><input type="text" name="txtEliminar" class="btn-warning"></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"><input type="submit" name="abogado" value="Eliminar" class="btn-warning"></td>
+                                        </tr>
+                                    </table>
+                                </form> 
+                            </div>
+                        </div>
+                    </center>
                 </div>
-            </div>
-        <?php } ?>
-    </body>
+            <?php } ?>
+            <?php
+            if ($user->getTipo_usuario() == 5) {
+                ?>
+                <div>
+                    <center>
+                        <div>
+                            <h4>Despedir Abogado</h4>
+                            <div>
+                                <form action="proceso.php" method="post">
+                                    <table>
+                                        <tr>
+                                            <td>Id Despedir</td>
+                                            <td><input type="text" name="txtDespedir" class="btn-warning"></td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"><input type="submit" name="abogado" value="Despedir" class="btn-warning"></td>
+                                        </tr>
+                                    </table>
+                                </form> 
+                            </div>
+                        </div>
+                    </center>
+                </div>
+            <?php } ?>
+        </body>
+    </header>
 </html>

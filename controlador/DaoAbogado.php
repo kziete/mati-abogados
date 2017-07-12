@@ -28,8 +28,8 @@ class DaoAbogado {
      public function guardar($abogado) {
         try {
             $sql = "INSERT INTO ABOGADO VALUES(null,'@2',@3,'ACTIVO');";
-            str_replace("@2", $abogado->getEspecialidad(), $sql);
-            str_replace("@3", $abogado->getValorHora(), $sql);
+            $sql = str_replace("@2", $abogado->getEspecialidad(), $sql);
+            $sql = str_replace("@3", $abogado->getValorHora(), $sql);
             $resp = $this->conexion->sqlOperaciones($sql);
             return $resp;
         } catch (Exception $exc) {
@@ -49,7 +49,7 @@ class DaoAbogado {
 
     public function eliminar($id) {
         try {
-            $sql = "DELETE FROM ABOGADO WHERE ABOGADO_ID_USER=$id;";
+            $sql = "DELETE FROM ABOGADO WHERE ABOGADO_ID_USUARIO=$id;";
             $resp = $this->conexion->sqlOperaciones($sql);
             return $resp;
         } catch (Exception $ex) {
@@ -59,8 +59,18 @@ class DaoAbogado {
     
     public function despedir($id) {
         try {
-            $sql = "UPDATE ABOGADO SET ESTATUS='DESPEDIDO' WHERE ABOGADO_ID_USER=$id;";
+            $sql = "UPDATE ABOGADO SET ESTATUS='DESPEDIDO' WHERE ABOGADO_ID_USUARIO=$id;";
             $resp = $this->conexion->sqlOperaciones($sql);
+            return $resp;
+        } catch (Exception $ex) {
+            $traza = new Cl_Traza($exc->getTraceAsString());
+        }
+    }
+    
+    public function consultar($id){
+        try{
+            $sql = "SELECT * FROM ABOGADO WHERE ABOGADO_ID_USUARIO=$id;";
+            $resp = $this->conexion->sqlSeleccion($sql);
             return $resp;
         } catch (Exception $ex) {
             $traza = new Cl_Traza($exc->getTraceAsString());
