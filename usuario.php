@@ -14,120 +14,126 @@ and open the template in the editor.
     </head>
     <?php
     include './header.php';
-    ?>
-    <header>
-        <body id="page-top" class="index">
-            <?php
-            // put your code here
-            ?>
-            <div>
-                <div class="container">
-                    <center>
-                        <div class="row">
-                            Agregar Usuario
-                            <div>
-                                <form action="proceso.php" method="post">
-                                    <table>
-                                        <tr>
-                                            <td>Rut:</td>
-                                            <td><input type="text" name="txtRut" required="" class="btn-warning"></td>
-                                            <td>-</td>
-                                            <td><input type="text" name="txtVer" required="" class="btn-warning"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Password:</td>
-                                            <td><input type="password" name="txtPassword" required="" class="btn-warning"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Nombre Completo:</td>
-                                            <td><input type="text" name="txtNombre" required="" class="btn-warning"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tipo Usuario</td>
-                                            <td>
-                                                <select name="cboTipoUsuario" class="btn-warning">
-                                                    <?php
-                                                    $var = new DaoUsuario();
-                                                    $var = $var->listar_tipUsuario();
-                                                    while ($rows = mysqli_fetch_array($var)) {
-                                                        ?>
-                                                        <option value="<?php echo $rows[0] ?>"> <?php echo $rows[1]; ?></option>   
+    if ($user->getTipo_usuario() == 5) {
+        ?>
+        <header>
+            <body id="page-top" class="index">
+                <?php
+                // put your code here
+                ?>
+                <div>
+                    <div class="container">
+                        <center>
+                            <div class="row">
+                                Agregar Usuario
+                                <div>
+                                    <form action="proceso.php" method="post">
+                                        <table>
+                                            <tr>
+                                                <td>Rut:</td>
+                                                <td><input type="text" name="txtRut" required="" class="btn-warning"></td>
+                                                <td>-</td>
+                                                <td><input type="text" name="txtVer" required="" class="btn-warning"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Password:</td>
+                                                <td><input type="password" name="txtPassword" required="" class="btn-warning"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Nombre Completo:</td>
+                                                <td><input type="text" name="txtNombre" required="" class="btn-warning"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tipo Usuario</td>
+                                                <td>
+                                                    <select name="cboTipoUsuario" class="btn-warning">
                                                         <?php
-                                                    }
-                                                    ?>
-                                                </select> 
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2"><input class="btn-warning" type="submit" name="usuario" value="Guardar"></td>
-                                        </tr>
-                                    </table>
-                                </form>
+                                                        $var = new DaoUsuario();
+                                                        $var = $var->listar_tipUsuario();
+                                                        while ($rows = mysqli_fetch_array($var)) {
+                                                            ?>
+                                                            <option value="<?php echo $rows[0] ?>"> <?php echo $rows[1]; ?></option>   
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </select> 
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"><input class="btn-warning" type="submit" name="usuario" value="Guardar"></td>
+                                            </tr>
+                                        </table>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                    </center>
-                </div>
-                <div>
-                    <center>
-                        <div>
-                            <h4>Listar Usuario</h4>
+                        </center>
+                    </div>
+                    <div>
+                        <center>
                             <div>
-                                <table>
-                                    <?php
-                                    include 'controlador/DaoCliente.php';
-                                    $dao = new DaoUsuario();
-                                    $resultado = $dao->listar();
-                                    if ($resultado != null) {
-                                        echo '<table border="1">';
-                                        echo '<tr>';
-                                        echo '<td>Id</td>';
-                                        echo '<td>Rut</td>';
-                                        echo '<td>Password</td>';
-                                        echo '<td>Nombre Completo</td>';
-                                        echo '<td>Fecha Registro</td>';
-                                        echo '<td>Tipo Usuario</td>';
-                                        echo '</tr>';
-                                        while ($row = mysqli_fetch_array($resultado)) {
-                                            $hash = password_hash($row[2], PASSWORD_DEFAULT);
-                                            echo '<tr>';
-                                            echo '<td>' . $row[0] . '</td>';
-                                            echo '<td>' . $row[1] . '</td>';
-                                            echo '<td>' . $hash . '</td>';
-                                            echo '<td>' . $row[3] . '</td>';
-                                            echo '<td>' . $row[4] . '</td>';
-                                            echo '<td>' . $row[5] . '</td>';
-                                            echo '</tr>';
-                                        }
-                                    } else {
-                                        echo'<h4>no hay Usuarios</h4>';
-                                    }
-                                    ?>
-                                </table>
-                            </div>
-                        </div>
-                    </center>
-                </div>
-                <div>
-                    <center>
-                        <div>
-                            <h4>Eliminar Usuario</h4>
-                            <div>
-                                <form action="proceso.php" method="post">
+                                <h4>Listar Usuario</h4>
+                                <div>
                                     <table>
-                                        <tr>
-                                            <td>Rut Eliminar</td>
-                                            <td><input type="text" name="txtEliminar" required="" class="btn-warning"></td>
-                                        </tr>
-                                        <tr>
-                                            <td colspan="2"><input type="submit" name="usuario" value="Eliminar" class="btn-warning"></td>
-                                        </tr>
+                                        <?php
+                                        include 'controlador/DaoCliente.php';
+                                        $dao = new DaoUsuario();
+                                        $resultado = $dao->listar();
+                                        if ($resultado != null) {
+                                            echo '<table border="1">';
+                                            echo '<tr>';
+                                            echo '<td>Id</td>';
+                                            echo '<td>Rut</td>';
+                                            echo '<td>Password</td>';
+                                            echo '<td>Nombre Completo</td>';
+                                            echo '<td>Fecha Registro</td>';
+                                            echo '<td>Tipo Usuario</td>';
+                                            echo '</tr>';
+                                            while ($row = mysqli_fetch_array($resultado)) {
+                                                $hash = password_hash($row[2], PASSWORD_DEFAULT);
+                                                echo '<tr>';
+                                                echo '<td>' . $row[0] . '</td>';
+                                                echo '<td>' . $row[1] . '</td>';
+                                                echo '<td>' . $hash . '</td>';
+                                                echo '<td>' . $row[3] . '</td>';
+                                                echo '<td>' . $row[4] . '</td>';
+                                                echo '<td>' . $row[5] . '</td>';
+                                                echo '</tr>';
+                                            }
+                                        } else {
+                                            echo'<h4>no hay Usuarios</h4>';
+                                        }
+                                        ?>
                                     </table>
-                                </form> 
+                                </div>
                             </div>
-                        </div>
-                    </center>
+                        </center>
+                    </div>
+                    <div>
+                        <center>
+                            <div>
+                                <h4>Eliminar Usuario</h4>
+                                <div>
+                                    <form action="proceso.php" method="post">
+                                        <table>
+                                            <tr>
+                                                <td>Rut Eliminar</td>
+                                                <td><input type="text" name="txtEliminar" required="" class="btn-warning"></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"><input type="submit" name="usuario" value="Eliminar" class="btn-warning"></td>
+                                            </tr>
+                                        </table>
+                                    </form> 
+                                </div>
+                            </div>
+                        </center>
+                    </div>
                 </div>
-            </div>
-        </body>
-    </header>
+            </body>
+        </header>
+        <?php
+        } else{
+        header("location:Login.php");
+        }
+        ?>
 </html>
