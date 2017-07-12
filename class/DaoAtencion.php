@@ -75,10 +75,7 @@ class DaoAtencion {
     
     public function eliminar($id) {
         try {
-            $sql = "CALL ELIMINAR('@1','@2','@3');";
-            str_replace("@1", "atencion", $sql);
-            str_replace("@2", "numeroAtencion_id", $sql);
-            str_replace("@3", $id, $sql);
+            $sql = "DELETE FROM ATENCION WHERE NUMEROATENCION_ID=$id;";
             $resp = $this->conexion->query($sql);
             return $resp;
         } catch (Exception $ex) {

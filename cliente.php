@@ -1,3 +1,6 @@
+<?php
+include_once './class/Cl_Usuario.php';
+?>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -9,9 +12,11 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <title></title>
     </head>
+    <?php
+    include './header.php';
+    ?>
     <body>
-        <?php
-        ?>
+       
         <div>
             agregar
             <div>
@@ -96,38 +101,42 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
-        <div>
-            <h4>Listar</h4>
+        <?php
+        if ($user->getTipo_usuario() == 1) {
+            ?>
             <div>
-                <?php
-                include 'class/DaoAtencion.php';
-                $dao = new DaoAtencion();
-                $resultado = $dao->listar();
-                if ($resultado != null) {
-                    echo '<table border="1">';
-                    echo '<tr>';
-                    echo '<td>Id</td>';
-                    echo '<td>Estatus</td>';
-                    echo '<td>Fecha</td>';
-                    echo '<td>Hora</td>';
-                    echo '<td>Cliente</td>';
-                    echo '<td>Abogado</td>';
-                    echo '</tr>';
-                    while ($row = mysqli_fetch_array($resultado)) {
+                <h4>Listar</h4>
+                <div>
+                    <?php
+                    include 'class/DaoAtencion.php';
+                    $dao = new DaoAtencion();
+                    $resultado = $dao->listar();
+                    if ($resultado != null) {
+                        echo '<table border="1">';
                         echo '<tr>';
-                        echo '<td>' . $row[0] . '</td>';
-                        echo '<td>' . $row[1] . '</td>';
-                        echo '<td>' . $row[2] . '</td>';
-                        echo '<td>' . $row[3] . '</td>';
-                        echo '<td>' . $row[4] . '</td>';
-                        echo '<td>' . $row[5] . '</td>';
+                        echo '<td>Id</td>';
+                        echo '<td>Estatus</td>';
+                        echo '<td>Fecha</td>';
+                        echo '<td>Hora</td>';
+                        echo '<td>Cliente</td>';
+                        echo '<td>Abogado</td>';
                         echo '</tr>';
+                        while ($row = mysqli_fetch_array($resultado)) {
+                            echo '<tr>';
+                            echo '<td>' . $row[0] . '</td>';
+                            echo '<td>' . $row[1] . '</td>';
+                            echo '<td>' . $row[2] . '</td>';
+                            echo '<td>' . $row[3] . '</td>';
+                            echo '<td>' . $row[4] . '</td>';
+                            echo '<td>' . $row[5] . '</td>';
+                            echo '</tr>';
+                        }
+                    } else {
+                        echo'<h4>no hay atenciones</h4>';
                     }
-                } else {
-                    echo'<h4>no hay atenciones</h4>';
-                }
-                ?>
+                    ?>
+                </div>
             </div>
-        </div>
+        <?php } ?>
     </body>
 </html>
