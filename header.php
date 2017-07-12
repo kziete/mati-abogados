@@ -10,33 +10,88 @@ include_once '/class/DaoUsuario.php';
 ?>
 <html>
     <header>
-        <div>
-            <ul>
-                <li>
-                    <a href="#">Agregar</a>
-                </li>
-                <li>
-                    <a href="#">Listar</a>
-                </li>
-                <li>
-                    <a href="#">Eliminar</a>
-                </li>
-                <?php
-                session_start();
-                if (!isset($_SESSION['userid'])) {
-                    header("location:Login.php");
-                } else {
-                    $user = new Cl_Usuario;
-                    $user =$_SESSION['userid'];
-                    ?>
-                    <li>
-                        <a href="#"><?php echo $user->getNombre_completo() ; ?></a>
-                    </li>
-                    <li>
-                        <a href="Login.php">Logout</a>
-                    </li>
-                <?php } ?>
-            </ul>
-        </div>
+        <?php
+
+        function menuCliente() {
+            echo '<div>';
+            echo '<ul>';
+            echo '<li>';
+            echo '<a href="">Atenciones</a>';
+            echo '</li>';
+            echo '</ul>';
+            echo '</div>';
+        }
+        
+        function menuGerente(){
+             echo '<div>';
+            echo '<ul>';
+            echo '<li>';
+            echo '<a href="">Cliente</a>';
+            echo '</li>';
+            echo '<li>';
+            echo '<a href="">Abogado</a>';
+            echo '</li>';
+            echo '<li>';
+            echo '<a href="">Atenciones</a>';
+            echo '</li>';
+            echo '</ul>';
+            echo '</div>';
+        }
+        
+        function menuSecretaria() {
+            echo '<div>';
+            echo '<ul>';
+            echo '<li>';
+            echo '<a href="">Cliente</a>';
+            echo '</li>';
+            echo '<li>';
+            echo '<a href=" ">Abogado</a>';
+            echo '</li>';
+            echo '<li>';
+            echo '<a href=" ">Atenciones</a>';
+            echo '</li>';
+            echo '</ul>';
+            echo '</div>';
+        }
+        
+        function menuAdministrador(){
+            echo '<div>';
+            echo '<ul>';
+            echo '<li>';
+            echo '<a href="">Cliente</a>';
+            echo '</li>';
+            echo '<li>';
+            echo '<a href=" ">Abogado</a>';
+            echo '</li>';
+            echo '<li>';
+            echo '<a href=" ">Usuario</a>';
+            echo '</li>';
+            echo '</ul>';
+            echo '</div>';
+        }
+
+        session_start();
+        if (!isset($_SESSION['userid'])) {
+            header("location:Login.php");
+        } else {
+            $user = new Cl_Usuario;
+            $user = $_SESSION['userid'];
+
+            switch ($user->getTipo_usuario()) {
+                case 1:
+                    menuCliente();
+                    break;
+                case 3:
+                    menuGerente();
+                    break;
+                case 4:
+                    menuSecretaria();
+                    break;
+                case 5:
+                    menuAdministrador();
+                    break;
+            }
+        }
+        ?>
     </header>
 </html>

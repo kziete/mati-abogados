@@ -50,7 +50,7 @@ include_once '/class/DaoUsuario.php';
             if (!isset($_SESSION['userid'])) {
                 if (isset($_POST['login'])) {
                     $dao = new DaoUsuario();
-                    $usuario = $dao->login2($_POST['txtRut'], $_POST['txtPass']);
+                    $usuario = $dao->login($_POST['txtRut'], $_POST['txtPass']);
                     if ($usuario != null) {
                         $_SESSION['userid'] = $usuario;
                         header("location:index2.php");
