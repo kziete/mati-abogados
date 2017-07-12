@@ -39,18 +39,6 @@ class DaoAtencion {
         }
     }
 
-     public function REFERENCIA($id) {
-        try {
-            $sql = "SELECT NUMEROATENCION_ID , USARIO.NOMBRE_COMPLETO FROM ATENCION "
-                    . "INNER JOIN USUARIO "
-                    . "ON ATENCION.CLIENTE_ID = USUARIO.USUARIO_ID"
-                    . "WHERE CLIENTE_ID=$id;";
-            $resp = $this->conexion->sqlSeleccion($sql);
-            return $resp;
-        } catch (Exception $exc) {
-            $traza = new Cl_Traza($exc->getTraceAsString());
-        }
-    }
     public function listarAtencionCliente($id) {
         try {
             $sql = "SELECT * FROM ATENCION WHERE CLIENTE_ID=$id;";

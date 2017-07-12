@@ -77,7 +77,8 @@ if (isset($_POST["cliente"])) {
         $dao = new DaoCliente();
         $cliente = new Cl_Cliente();
         $cliente->setTipoPersona($tipoPersona);
-        $cliente->setDireccion($direccion);
+        $var =base64_encode($direccion);
+        $cliente->setDireccion($var);
         $cliente->setTelefono($telefono);
 
         $resp = $dao->guardar($cliente);

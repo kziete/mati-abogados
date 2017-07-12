@@ -72,11 +72,11 @@ and open the template in the editor.
                                         echo '<td>Estatus</td>';
                                         echo '</tr>';
                                         while ($row = mysqli_fetch_array($resultado)) {
-                                            $hash = password_hash($row[2],PASSWORD_DEFAULT);
+                                            $var = base64_decode($row[2]);
                                             echo '<tr>';
                                             echo '<td>' . $row[0] . '</td>';
                                             echo '<td>' . $row[1] . '</td>';
-                                            echo '<td>' . $hash . '</td>';
+                                            echo '<td>' . $var . '</td>';
                                             echo '<td>' . $row[3] . '</td>';
                                             echo '<td>' . $row[4] . '</td>';
                                             echo '</tr>';
