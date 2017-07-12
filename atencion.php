@@ -87,20 +87,43 @@ and open the template in the editor.
                                         <?php
                                         $dao = new DaoAtencion();
                                         $resultado = $dao->listar();
+                                        date_default_timezone_set("AMERICA/SANTIAGO");
+                                        $time = time();
+                                        $fechaActual = date("y-m-d", $time);
+
+                                        $nuevaFecha = strtotime('-2 day', strtotime($fechaActual));
+                                        $nuevaFecha = date("y-m-d", $nuevaFecha);
+
                                         if ($resultado != null) {
                                             echo '<table border="1">';
                                             echo '<tr>';
                                             echo '<td>Id:</td>';
                                             echo '<td>Estatus:</td>';
+                                            echo '<td>mensaje:</td>';
                                             echo '<td>Fecha:</td>';
                                             echo '<td>Hora:</td>';
                                             echo '<td>Cliente Id:</td>';
                                             echo '<td>Abogado Id</td>';
                                             echo '</tr>';
                                             while ($row = mysqli_fetch_array($resultado)) {
+                                                $dias = (strtotime($row[2]) - (strtotime($fechaActual))) / 86400;
+                                                $estado = "<td>...</td>";
                                                 echo '<tr>';
                                                 echo '<td>' . $row[0] . '</td>';
                                                 echo '<td>' . $row[1] . '</td>';
+                                                if ($dias == 2) {
+                                                    $estado = '<td>Confirmar Atencion tutoria</td>';
+                                                }
+                                                if ($dias == 1) {
+                                                    $dao->cambiarEstado("ANULADO", $row[0]);
+                                                    $estado = '<td>Atencion Anulada</td>';
+                                                }
+
+                                                if ($dias <= -1) {
+                                                     $dao->cambiarEstadoPerdida($row[0]);
+                                                    $estado = '<td>Tutoria Perdida</td>';
+                                                }
+                                                echo $estado;
                                                 echo '<td>' . $row[2] . '</td>';
                                                 echo '<td>' . $row[3] . '</td>';
                                                 echo '<td>' . $row[4] . '</td>';

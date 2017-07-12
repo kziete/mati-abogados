@@ -78,6 +78,27 @@ class DaoAtencion {
             $traza = new Cl_Traza($exc->getTraceAsString());
         }
     }
+    
+     public function cambiarEstadoPerdida($id) {
+        try {
+            $sql = "UPDATE ATENCION SET ESTATUS='PERDIDA' WHERE NUMEROATENCION_ID=$id AND WHERE ESTATUS='CONFIRMADA';";
+            $resp = $this->conexion->sqlOperaciones($sql);
+            return $resp;
+        } catch (Exception $exc) {
+            $traza = new Cl_Traza($exc->getTraceAsString());
+        }
+    }
+    
+    public function cambiarEstadoAnulada($id) {
+        try {
+            $sql = "UPDATE ATENCION SET ESTATUS='ANULADA' WHERE NUMEROATENCION_ID=$id AND WHERE ESTATUS='AGENDADA';";
+            $resp = $this->conexion->sqlOperaciones($sql);
+            return $resp;
+        } catch (Exception $exc) {
+            $traza = new Cl_Traza($exc->getTraceAsString());
+        }
+    }
+    
 
     public function listar_cliente() {
         try {
