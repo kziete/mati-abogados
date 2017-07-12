@@ -11,7 +11,7 @@
  *
  * @author Matito
  */
-include_once '/Cl_Traza.php';
+include_once 'Cl_Traza.php';
 
 class Cl_Conexion {
 

@@ -86,9 +86,11 @@ class DaoUsuario {
 
     public function login($rut, $pass) {
         try {
-            $sql = "SELECT * FROM usuario WHERE rut=$rut AND password=$pass;";
+            $sql = "SELECT * FROM usuario WHERE rut='$rut' AND password='$pass';";
             $resp = $this->conexion->sqlSeleccion($sql);
+            if($resp){
                 while ($row = mysqli_fetch_array($resp)) {
+                    print_r($row);
                     $usuario = new Cl_Usuario();
                     $usuario->setUsuario_id($row[0]);
                     $usuario->setRut($row[1]);
@@ -98,6 +100,7 @@ class DaoUsuario {
                     $usuario->setTipo_usuario($row[5]);
                     return $usuario;
                 }
+            }
                 
         } catch (Exception $ex) {
             $traza = new Cl_Traza($exc->getTraceAsString());
