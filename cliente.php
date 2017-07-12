@@ -21,18 +21,17 @@ and open the template in the editor.
             <h4>Listar Clientes</h4>
             <div>
                 <?php
-                include 'class/DaoCliente.php';
+                include 'controlador/DaoCliente.php';
                 $dao = new DaoCliente();
                 $resultado = $dao->listar();
                 if ($resultado != null) {
                     echo '<table border="1">';
                     echo '<tr>';
                     echo '<td>Id</td>';
+                    echo '<td>Tipo Persona</td>';
+                    echo '<td>Direccion</td>';
+                    echo '<td>Telefono</td>';
                     echo '<td>Estatus</td>';
-                    echo '<td>Fecha</td>';
-                    echo '<td>Hora</td>';
-                    echo '<td>Cliente</td>';
-                    echo '<td>Abogado</td>';
                     echo '</tr>';
                     while ($row = mysqli_fetch_array($resultado)) {
                         echo '<tr>';
@@ -41,11 +40,10 @@ and open the template in the editor.
                         echo '<td>' . $row[2] . '</td>';
                         echo '<td>' . $row[3] . '</td>';
                         echo '<td>' . $row[4] . '</td>';
-                        echo '<td>' . $row[5] . '</td>';
                         echo '</tr>';
                     }
                 }else{
-                    echo'<h4>no hay atenciones</h4>';
+                    echo'<h4>no hay Clientes</h4>';
                 }
                 ?>
             </div>

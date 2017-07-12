@@ -11,7 +11,7 @@
  *
  * @author Matito
  */
-include_once '../class/Cl_Conexion.php';
+include_once 'class/Cl_Conexion.php';
 
 class DaoCliente {
 
@@ -38,11 +38,21 @@ class DaoCliente {
         }
     }
 
-    public function listar() {
+    public function listar2() {
         try {
             $sql = "CALL LISTAR('@1');";
             str_replace("@1", "cliente", $sql);
             $resp = $this->conexion->query($sql);
+            return $resp;
+        } catch (Exception $exc) {
+            $traza = new Cl_Traza($exc->getTraceAsString());
+        }
+    }
+    
+    public function listar() {
+        try {
+            $sql = "SELECT * FROM CLIENTE;";
+            $resp = $this->conexion->sqlSeleccion($sql);
             return $resp;
         } catch (Exception $exc) {
             $traza = new Cl_Traza($exc->getTraceAsString());
