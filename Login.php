@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <?php
-include_once '/class/Cl_Usuario.php';
-include_once '/class/DaoUsuario.php';
+include_once 'class/Cl_Usuario.php';
+include_once 'class/DaoUsuario.php';
 ?>
 <html>
     <head>
