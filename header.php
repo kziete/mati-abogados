@@ -5,8 +5,8 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <?php
-include_once '/class/Cl_Usuario.php';
-include_once '/class/DaoUsuario.php';
+include_once 'class/Cl_Usuario.php';
+include_once 'class/DaoUsuario.php';
 ?>
 <html>
     <header>

@@ -37,7 +37,7 @@ and open the template in the editor.
 
     </head>
     <body clas="index">
-        <?php include '/header.php'; ?>
+        <?php include 'header.php'; ?>
         <div class="container">
             <h3>Home</h3>
         </div>
