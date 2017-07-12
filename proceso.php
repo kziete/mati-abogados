@@ -1,11 +1,14 @@
 <?php
 
 include_once './class/DaoUsuario.php';
-include_once './controlador/DaoCliente.php';
+include_once './class/DaoAtencion.php';
 include_once './class/Cl_Usuario.php';
 include_once './class/Cl_Cliente.php';
 include_once './class/Cl_Abogado.php';
+include_once './class/Cl_Atencion.php';
 include_once './controlador/DaoAbogado.php';
+include_once './controlador/DaoCliente.php';
+
 
 if (isset($_POST["usuario"])) {
     $accion = $_POST["usuario"];
@@ -195,6 +198,106 @@ if (isset($_POST["abogado"])) {
             break;
         case "Despedir":
             despedirAbogado();
+            break;
+        case "Eliminar":
+            EliminarAbogado();
+            break;
+    }
+}
+
+if (isset($_POST["atencion"])) {
+    $accion = $_POST["atencion"];
+
+    function guardarAtencion() {
+        $hora = $_POST["txtHora"];
+        $cliente = $_POST["txtCliente"];
+        $abogado = $_POST["txtAbogado"];
+
+        $dao = new DaoAtencion();
+        $atencion = new Cl_Atencion();
+        $atencion->setHora($hora);
+        $atencion->setCliente($cliente);
+        $atencion->setAbogado($abogado);
+
+        $resp = $dao->guardar($atencion);
+        if ($resp > 0) {
+            echo 'Grabado';
+        } else {
+            echo 'No grabo';
+        }
+        echo '<br>';
+        echo '<a href="atencion.php">Volver<a>';
+    }
+
+    function eliminarAtencion() {
+        $id = $_POST["txtEliminar"];
+        $dao = new DaoAtencion();
+
+        $resp = $dao->eliminar($id);
+        if ($resp > 0) {
+            echo 'Eliminado';
+        } else {
+            echo 'No Existe Esa Id';
+        }
+        echo '<br>';
+        echo '<a href="atencion.php">Volver<a>';
+    }
+
+    function consultarAtencion() {
+        $id = $_POST["txtConsultar"];
+        $dao = new DaoAtencion();
+
+        $resp = $dao->consultar($id);
+        if ($resp != null) {
+            echo '<table border="1">';
+            echo '<tr>';
+            echo '<td>Id:</td>';
+            echo '<td>Especialida:</td>';
+            echo '<td>Valor Hora:</td>';
+            echo '<td>Estatus:</td>';
+            echo '</tr>';
+            while ($row = mysqli_fetch_array($resp)) {
+                echo '<tr>';
+                echo '<td>' . $row[0] . '</td>';
+                echo '<td>' . $row[1] . '</td>';
+                echo '<td>' . $row[2] . '</td>';
+                echo '<td>' . $row[3] . '</td>';
+                echo '</tr>';
+            };
+        } else {
+            echo 'No Existe Ese Abogado';
+        }
+        echo '<br>';
+        echo '<a href="atencion.php">Volver<a>';
+    }
+
+    function cambiarAtencion() {
+        $id = $_POST["txtId"];
+        $estado = $_POST["txtAtencion"];
+        $dao = new DaoAtencion();
+
+        $resp = $dao->cambiarEstado($estado,$id);
+        if ($resp > 0) {
+            echo 'Cambio Exitoso';
+        } else {
+            echo 'No Se Pudo Cambiar';
+        }
+        echo '<br>';
+        echo '<a href="atencion.php">Volver<a>';
+    }
+
+    switch ($accion) {
+        case "Guardar":
+            guardarAtencion();
+            break;
+        case "Eliminar":
+            eliminarAtencion();
+            break;
+        case "Consultar":
+            consultarAtencion();
+            break;
+        case "Cambiar":
+            cambiarAtencion();
             break;
         case "Eliminar":
             EliminarAbogado();
