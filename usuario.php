@@ -9,6 +9,10 @@ and open the template in the editor.
         <meta charset="UTF-8">
         <title></title>
     </head>
+       <?php
+            include './header.php';
+            include_once './class/DaoUsuario.php';
+        ?>
     <body>
         <?php
         // put your code here
@@ -34,18 +38,21 @@ and open the template in the editor.
                                     <td><input type="text" name="txtNombre"></td>
                                 </tr>
                                 <tr>
-                                <select name="cboPelicula">
-                                        <option value="" selected="">Elige</option>
-                                        <?php
-                                        $var = new DaoUsuario();
-                                        $var = $var->mostrarCartelera();
-                                        while ($rows = mysqli_fetch_array($var)) {
-                                            ?>
-                                            <option value="<?php echo $rows['codigo'] ?>"> <?php echo $rows['titulo']; ?></option>   
+                                    <td>Tipo Usuario</td>
+                                    <td>
+                                        <select name="cboPelicula">
+                                            <option value="" selected="">Elige</option>
                                             <?php
-                                        }
-                                        ?>
-                                    </select> 
+                                            $var = new DaoUsuario();
+                                            $var = $var->listar_tipUsuario();
+                                            while ($rows = mysqli_fetch_array($var)) {
+                                                ?>
+                                                <option value="<?php echo $rows[0] ?>"> <?php echo $rows[1]; ?></option>   
+                                                <?php
+                                            }
+                                            ?>
+                                        </select> 
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td colspan="2"><input type="submit" name="btnGuardar"></td>

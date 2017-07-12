@@ -49,6 +49,16 @@ class DaoUsuario {
             $traza = new Cl_Traza($exc->getTraceAsString());
         }
     }
+    
+     public function listar_tipUsuario() {
+        try {
+            $sql = "SELECT * FROM TIPO_USUARIO;";
+            $resp = $this->conexion->query($sql);
+            return $resp;
+        } catch (Exception $exc) {
+            $traza = new Cl_Traza($exc->getTraceAsString());
+        }
+    }
 
     public function eliminar($id) {
         try {
