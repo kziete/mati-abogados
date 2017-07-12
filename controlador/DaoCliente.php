@@ -26,12 +26,11 @@ class DaoCliente {
     }
     public function guardar($cliente) {
         try {
-            $sql = "CALL INSERTAR_CLIENTE(null,'@2','@3',@4,'@5');";
-            str_replace("@2", $cliente->getTipoPersona, $sql);
+            $sql = "INSERT INTO CLIENTE VALUES(null,@2,'@3',@4,'ACTIVO');";
+            str_replace("@2", $cliente->getTipoPersona(), $sql);
             str_replace("@3", $cliente->getDireccion(), $sql);
             str_replace("@4", $cliente->getTelefono(), $sql);
-            str_replace("@5", "ACTIVO", $sql);
-            $resp = $this->conexion->query($sql);
+            $resp = $this->conexion->sqlOperaciones($sql);
             return $resp;
         } catch (Exception $exc) {
             $traza = new Cl_Traza($exc->getTraceAsString());
@@ -50,11 +49,8 @@ class DaoCliente {
 
      public function eliminar($id) {
         try {
-            $sql = "CALL ELIMINAR('@1','@2','@3');";
-            str_replace("@1", "cliente", $sql);
-            str_replace("@2", "cliente_id_usuario", $sql);
-            str_replace("@3", $id, $sql);
-            $resp = $this->conexion->query($sql);
+            $sql = "DELETE FROM CLIENT WHERE CLIENTE_ID_USER=$id;";
+            $resp = $this->conexion->sqlOperaciones($sql);
             return $resp;
         } catch (Exception $ex) {
             $traza = new Cl_Traza($exc->getTraceAsString());

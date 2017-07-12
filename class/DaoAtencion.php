@@ -53,37 +53,9 @@ class DaoAtencion {
     public function eliminar($id) {
         try {
             $sql = "DELETE FROM ATENCION WHERE NUMEROATENCION_ID=$id;";
-            $resp = $this->conexion->query($sql);
+            $resp = $this->conexion->sqlOperaciones($sql);
             return $resp;
         } catch (Exception $ex) {
-            $traza = new Cl_Traza($exc->getTraceAsString());
-        }
-    }
-    
-    
-    public function atenecionEstado($caso,$id) {
-        try {
-            $estado="test";
-            switch ($caso){
-                case 1:
-                    $estado = "REALIZADA";
-                    break;
-                case 2:
-                    $estado = "PERDIDA";
-                    break;
-                case 3:
-                    $estado = "CONFIRMADA";
-                    break;
-                case 4:
-                    $estado = "ANULADA";
-                    break;
-            }
-            $sql = "CALL ATENCION_ESTADO(@1,'@2');";
-            str_replace("@1", $id, $sql);
-            str_replace("@2", $estado, $sql);
-            $resp = $this->conexion->query($sql);
-            return $resp;
-        } catch (Exception $exc) {
             $traza = new Cl_Traza($exc->getTraceAsString());
         }
     }
