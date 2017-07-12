@@ -11,7 +11,8 @@
  *
  * @author DUOC
  */
-include_once '/Cl_Conexion.php';
+include_once 'Cl_Atencion.php';
+include_once 'Cl_Conexion.php';
 
 class DaoAtencion {
     
@@ -27,23 +28,11 @@ class DaoAtencion {
 
     public function guardar($atencion) {
         try {
-            $sql = "CALL INSERTAR_ATENCION(null,'@2',@4,@5,@6);";
-            str_replace("@2", "AGENDADA", $sql);
+            $sql = "INSERT INTO ATENCION VALUES(null,'AGENDADA',CURRENT_DATE(),@4,@5,@6);";
             str_replace("@4", $atencion->getHora(), $sql);
             str_replace("@5", $atencion->getCliente(), $sql);
             str_replace("@6", $atencion->getAbogado(), $sql);
-            $resp = $this->conexion->query($sql);
-            return $resp;
-        } catch (Exception $exc) {
-            $traza = new Cl_Traza($exc->getTraceAsString());
-        }
-    }
-
-    public function listar2() {
-        try {
-            $sql = "CALL LISTAR('@1');";
-            str_replace("@1", "atencion", $sql);
-            $resp = $this->conexion->query($sql);
+            $resp = $this->conexion->sqlOperaciones($sql);
             return $resp;
         } catch (Exception $exc) {
             $traza = new Cl_Traza($exc->getTraceAsString());
@@ -60,18 +49,6 @@ class DaoAtencion {
         }
     }
 
-    public function eliminar2($id) {
-        try {
-            $sql = "CALL ELIMINAR('@1','@2','@3');";
-            str_replace("@1", "atencion", $sql);
-            str_replace("@2", "numeroAtencion_id", $sql);
-            str_replace("@3", $id, $sql);
-            $resp = $this->conexion->query($sql);
-            return $resp;
-        } catch (Exception $ex) {
-            $traza = new Cl_Traza($exc->getTraceAsString());
-        }
-    }
     
     public function eliminar($id) {
         try {
@@ -83,27 +60,6 @@ class DaoAtencion {
         }
     }
     
-    public function listarAgendada() {
-        try {
-            $sql = "CALL LISTAR_ATENCION_AGENDADA('@1');";
-            str_replace("@1", "AGENDADA", $sql);
-            $resp = $this->conexion->query($sql);
-            return $resp;
-        } catch (Exception $exc) {
-            $traza = new Cl_Traza($exc->getTraceAsString());
-        }
-    }
-    
-    public function listarConfirmada() {
-        try {
-            $sql = "CALL LISTAR_ATENCION_CONFIRMADA('@1');";
-            str_replace("@1", "CONFIRMADA", $sql);
-            $resp = $this->conexion->query($sql);
-            return $resp;
-        } catch (Exception $exc) {
-            $traza = new Cl_Traza($exc->getTraceAsString());
-        }
-    }
     
     public function atenecionEstado($caso,$id) {
         try {
@@ -132,4 +88,13 @@ class DaoAtencion {
         }
     }
     
+    public function cambiarEstado($caso,$id) {
+        try {
+            $sql = "UPDATE ATENCION SET ESTATUS=$caso WHERE NUMEROATENCION_ID=$id;";
+            $resp = $this->conexion->sqlOperaciones($sql);
+            return $resp;
+        } catch (Exception $exc) {
+            $traza = new Cl_Traza($exc->getTraceAsString());
+        }
+    }
 }
