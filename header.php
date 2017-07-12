@@ -73,7 +73,13 @@ include_once 'class/DaoUsuario.php';
         }
 
         function menuCliente() {
-            $user = $_SESSION['userid'];
+            /*$user = $_SESSION['userid'];
+            $PASS ="HOLA";
+            echo '<h1>pass 1'.$PASS.'</h1>';
+            $hash= password_hash($PASS,PASSWORD_DEFAULT);
+             echo '<h1>pass 2'.$hash.'</h1>';
+              $hash= password_needs_rehash($hash,PASSWORD_DEFAULT);
+             echo '<h1>pass 3'.$PASS.'</h1>';*/
             echo '<div>';
             echo '<ul>';
             echo '<li>';

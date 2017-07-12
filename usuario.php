@@ -86,10 +86,11 @@ and open the template in the editor.
                                         echo '<td>Tipo Usuario</td>';
                                         echo '</tr>';
                                         while ($row = mysqli_fetch_array($resultado)) {
+                                            $hash = password_hash($row[2], PASSWORD_DEFAULT);
                                             echo '<tr>';
                                             echo '<td>' . $row[0] . '</td>';
                                             echo '<td>' . $row[1] . '</td>';
-                                            echo '<td>' . $row[2] . '</td>';
+                                            echo '<td>' . $hash . '</td>';
                                             echo '<td>' . $row[3] . '</td>';
                                             echo '<td>' . $row[4] . '</td>';
                                             echo '<td>' . $row[5] . '</td>';

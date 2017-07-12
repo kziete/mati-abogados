@@ -39,6 +39,18 @@ class DaoAtencion {
         }
     }
 
+     public function REFERENCIA($id) {
+        try {
+            $sql = "SELECT NUMEROATENCION_ID , USARIO.NOMBRE_COMPLETO FROM ATENCION "
+                    . "INNER JOIN USUARIO "
+                    . "ON ATENCION.CLIENTE_ID = USUARIO.USUARIO_ID"
+                    . "WHERE CLIENTE_ID=$id;";
+            $resp = $this->conexion->sqlSeleccion($sql);
+            return $resp;
+        } catch (Exception $exc) {
+            $traza = new Cl_Traza($exc->getTraceAsString());
+        }
+    }
     public function listarAtencionCliente($id) {
         try {
             $sql = "SELECT * FROM ATENCION WHERE CLIENTE_ID=$id;";
@@ -81,7 +93,7 @@ class DaoAtencion {
 
     public function listar_cliente() {
         try {
-            $sql = "SELECT * FROM CLIENTE WHERE ESTATUS='ACTIVO';";
+            $sql = "SELECT cliente.cliente_id_usuario, usuario.nombre_completo FROM cliente INNER JOIN usuario ON cliente.cliente_id_usuario = usuario.usuario_id WHERE cliente.estatus='ACTIVO';";
             $resp = $this->conexion->sqlSeleccion($sql);
             return $resp;
         } catch (Exception $exc) {
@@ -91,7 +103,7 @@ class DaoAtencion {
 
     public function listar_abogado() {
         try {
-            $sql = "SELECT * FROM ABOGADO WHERE ESTATUS='ACTIVO';";
+            $sql = "SELECT abogado.abogado_id_usuario, usuario.nombre_completo FROM abogado INNER JOIN usuario ON abogado.abogado_id_usuario = usuario.usuario_id WHERE abogado.estatus='ACTIVO';";
             $resp = $this->conexion->sqlSeleccion($sql);
             return $resp;
         } catch (Exception $exc) {

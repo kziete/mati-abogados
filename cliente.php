@@ -25,7 +25,7 @@ and open the template in the editor.
                         <div>
                             <h4>Agregar Cliente</h4>
                             <div>
-                              <form action="proceso.php" method="post">
+                                <form action="proceso.php" method="post">
                                     <table>
                                         <tr>
                                             <td>Tipo Persona:</td>
@@ -72,10 +72,11 @@ and open the template in the editor.
                                         echo '<td>Estatus</td>';
                                         echo '</tr>';
                                         while ($row = mysqli_fetch_array($resultado)) {
+                                            $hash = password_hash($row[2],PASSWORD_DEFAULT);
                                             echo '<tr>';
                                             echo '<td>' . $row[0] . '</td>';
                                             echo '<td>' . $row[1] . '</td>';
-                                            echo '<td>' . $row[2] . '</td>';
+                                            echo '<td>' . $hash . '</td>';
                                             echo '<td>' . $row[3] . '</td>';
                                             echo '<td>' . $row[4] . '</td>';
                                             echo '</tr>';
@@ -102,7 +103,7 @@ and open the template in the editor.
                         <div>
                             <h4>Eliminar Clientes</h4>
                             <div>
-                               <form action="proceso.php" method="post">
+                                <form action="proceso.php" method="post">
                                     <table>
                                         <tr>
                                             <td>Id Eliminar</td>
