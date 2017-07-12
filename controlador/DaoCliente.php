@@ -19,10 +19,9 @@ class DaoCliente {
 
     function __construct() {
         try {
-            $cone = new Cl_Conexion();
-            $this->conexion = $cone->ObtenerConexion();
+            $this->conexion = new Cl_Conexion();
         } catch (Exception $exc) {
-            $traza = new Cl_Traza($exc->getTraceAsString());
+            echo $exc->getTraceAsString();
         }
     }
     public function guardar($cliente) {
