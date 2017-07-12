@@ -33,7 +33,6 @@ class DaoUsuario {
             $sql = str_replace("@4", $usuario->getNombre_completo(), $sql);
             $sql = str_replace("@6", $usuario->getTipo_usuario(), $sql);
             $resp = $this->conexion->sqlOperaciones($sql);
-            echo 'sql: ' . $sql;
             return $resp;
         } catch (Exception $exc) {
             $traza = new Cl_Traza($exc->getTraceAsString());

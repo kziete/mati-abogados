@@ -39,6 +39,16 @@ class DaoAtencion {
         }
     }
     
+    public function listarAtencionCliente($id) {
+        try {
+            $sql = "SELECT * FROM ATENCION WHERE CLIENTE_ID=$id;";
+            $resp = $this->conexion->sqlSeleccion($sql);
+            return $resp;
+        } catch (Exception $exc) {
+            $traza = new Cl_Traza($exc->getTraceAsString());
+        }
+    }
+    
     public function listar() {
         try {
             $sql = "SELECT * FROM ATENCION;";

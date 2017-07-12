@@ -116,12 +116,12 @@ and open the template in the editor.
         if ($user->getTipo_usuario() == 1) {
             ?>
             <div>
-                <h4>Listar</h4>
+                <h4>Mis Atenciones</h4>
                 <div>
                     <?php
                     include 'class/DaoAtencion.php';
                     $dao = new DaoAtencion();
-                    $resultado = $dao->listar();
+                    $resultado = $dao->listarAtencionCliente($user->getUsuario_id());
                     if ($resultado != null) {
                         echo '<table border="1">';
                         echo '<tr>';

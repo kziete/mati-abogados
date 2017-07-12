@@ -1,4 +1,5 @@
 <?php
+
 include_once './class/DaoUsuario.php';
 include_once './class/Cl_Usuario.php';
 
@@ -19,12 +20,27 @@ if (isset($_POST["usuario"])) {
         $usuario->setTipo_usuario($tipo);
 
         $resp = $dao->guardar($usuario);
-
         if ($resp > 0) {
             echo 'Grabado';
         } else {
             echo 'No grabo';
         }
+        echo '<br>';
+        echo '<a href="usuario.php">Volver<a>';
+    }
+    
+    function eliminarUsuario() {
+        $id = $_POST["txtEliminar"];
+        $dao = new DaoUsuario();
+
+        $resp = $dao->eliminar($id);
+        if ($resp > 0) {
+            echo 'Eliminado';
+        } else {
+            echo 'No Existe Esa Id';
+        }
+        echo '<br>';
+        echo '<a href="usuario.php">Volver<a>';
     }
 
     switch ($accion) {
@@ -32,7 +48,7 @@ if (isset($_POST["usuario"])) {
             guardarUsuario();
             break;
         case "Eliminar":
-            echo 'llegamos al eliminar';
+            EliminarUsuario();
             break;
     }
 }
