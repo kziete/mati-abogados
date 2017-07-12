@@ -11,18 +11,17 @@
  *
  * @author DUOC
  */
-include_once '../class/Cl_Conexion.php';
+include_once '/Cl_Conexion.php';
 
 class DaoAtencion {
     
     private $conexion;
 
-    function __construct() {
+     function __construct() {
         try {
-            $cone = new Cl_Conexion();
-            $this->conexion = $cone->ObtenerConexion();
+            $this->conexion = new Cl_Conexion();
         } catch (Exception $exc) {
-            $traza = new Cl_Traza($exc->getTraceAsString());
+            echo $exc->getTraceAsString();
         }
     }
     
@@ -40,11 +39,21 @@ class DaoAtencion {
         }
     }
 
-    public function listar() {
+    public function listar2() {
         try {
             $sql = "CALL LISTAR('@1');";
             str_replace("@1", "atencion", $sql);
             $resp = $this->conexion->query($sql);
+            return $resp;
+        } catch (Exception $exc) {
+            $traza = new Cl_Traza($exc->getTraceAsString());
+        }
+    }
+    
+    public function listar() {
+        try {
+            $sql = "SELECT * FROM ATENCION;";
+            $resp = $this->conexion->sqlSeleccion($sql);
             return $resp;
         } catch (Exception $exc) {
             $traza = new Cl_Traza($exc->getTraceAsString());

@@ -98,7 +98,7 @@ class DaoUsuario {
                     $usuario->setTipo_usuario($row[5]);
                     return $usuario;
                 }
-                return null;
+                
         } catch (Exception $ex) {
             $traza = new Cl_Traza($exc->getTraceAsString());
         }
