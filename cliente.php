@@ -16,95 +16,102 @@ and open the template in the editor.
     include './header.php';
     ?>
     <body>
-       
-        <div>
-            agregar
-            <div>
-                Agregar Cliente
-                <div>
-                    <form>
-                        <table>
-                            <tr>
-                                <td>Tipo Persona:</td>
-                                <td><input type="text" name="txtTipoPersona"></td>
-                            </tr>
-                            <tr>
-                                <td>Direccion:</td>
-                                <td><input type="text" name="txtDireccion"></td>
-                            </tr>
-                            <tr>
-                                <td>Telefono:</td>
-                                <td><input type="number" name="txtTelefono"></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2"><input type="submit" name="txtAgregar"></td>
-                            </tr>
-                        </table>
-                    </form>
-                </div>
-            </div>
-        </div>
         <?php
-        if($user->getTipo_usuario() == 3 || $user->getTipo_usuario() == 4 || $user->getTipo_usuario() == 5){
+        if ($user->getTipo_usuario() == 3) {
             ?>
-        <div>
-            Listar
             <div>
-                <h4>Listar Clientes</h4>
+                agregar
                 <div>
-                    <?php
-                    include 'controlador/DaoCliente.php';
-                    $dao = new DaoCliente();
-                    $resultado = $dao->listar();
-                    if ($resultado != null) {
-                        echo '<table border="1">';
-                        echo '<tr>';
-                        echo '<td>Id</td>';
-                        echo '<td>Tipo Persona</td>';
-                        echo '<td>Direccion</td>';
-                        echo '<td>Telefono</td>';
-                        echo '<td>Estatus</td>';
-                        echo '</tr>';
-                        while ($row = mysqli_fetch_array($resultado)) {
-                            echo '<tr>';
-                            echo '<td>' . $row[0] . '</td>';
-                            echo '<td>' . $row[1] . '</td>';
-                            echo '<td>' . $row[2] . '</td>';
-                            echo '<td>' . $row[3] . '</td>';
-                            echo '<td>' . $row[4] . '</td>';
-                            echo '</tr>';
-                        }
-                    } else {
-                        echo'<h4>no hay Clientes</h4>';
-                    }
-                    ?>
+                    Agregar Cliente
+                    <div>
+                        <form>
+                            <table>
+                                <tr>
+                                    <td>Tipo Persona:</td>
+                                    <td><input type="text" name="txtTipoPersona"></td>
+                                </tr>
+                                <tr>
+                                    <td>Direccion:</td>
+                                    <td><input type="text" name="txtDireccion"></td>
+                                </tr>
+                                <tr>
+                                    <td>Telefono:</td>
+                                    <td><input type="number" name="txtTelefono"></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><input type="submit" name="txtAgregar"></td>
+                                </tr>
+                            </table>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-        <?php }?>
+        <?php } ?>
+        <?php
+        if ($user->getTipo_usuario() == 3 || $user->getTipo_usuario() == 4 || $user->getTipo_usuario() == 5) {
+            ?>
+            <div>
+                Listar
+                <div>
+                    <h4>Listar Clientes</h4>
+                    <div>
+                        <?php
+                        include 'controlador/DaoCliente.php';
+                        $dao = new DaoCliente();
+                        $resultado = $dao->listar();
+                        if ($resultado != null) {
+                            echo '<table border="1">';
+                            echo '<tr>';
+                            echo '<td>Id</td>';
+                            echo '<td>Tipo Persona</td>';
+                            echo '<td>Direccion</td>';
+                            echo '<td>Telefono</td>';
+                            echo '<td>Estatus</td>';
+                            echo '</tr>';
+                            while ($row = mysqli_fetch_array($resultado)) {
+                                echo '<tr>';
+                                echo '<td>' . $row[0] . '</td>';
+                                echo '<td>' . $row[1] . '</td>';
+                                echo '<td>' . $row[2] . '</td>';
+                                echo '<td>' . $row[3] . '</td>';
+                                echo '<td>' . $row[4] . '</td>';
+                                echo '</tr>';
+                            }
+                        } else {
+                            echo'<h4>no hay Clientes</h4>';
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+        <?php } ?>
         <div>
             Consultar
 
         </div>
-        <div>
-            Eliminar
+        <?php
+        if ($user->getTipo_usuario() == 3) {
+            ?>
             <div>
-                Eliminar Clientes
+                Eliminar
                 <div>
-                    <form>
-                        <table>
-                            <tr>
-                                <td>Id Eliminar</td>
-                                <td><input type="text" name="txtEliminar" ></td>
-                            </tr>
-                            <tr>
-                                <td colspan="2"><input type="submit" name="btnEliminar"></td>
-                            </tr>
-                        </table>
-                    </form> 
+                    Eliminar Clientes
+                    <div>
+                        <form>
+                            <table>
+                                <tr>
+                                    <td>Id Eliminar</td>
+                                    <td><input type="text" name="txtEliminar" ></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><input type="submit" name="btnEliminar"></td>
+                                </tr>
+                            </table>
+                        </form> 
+                    </div>
                 </div>
             </div>
-        </div>
+        <?php } ?>
         <?php
         if ($user->getTipo_usuario() == 1) {
             ?>

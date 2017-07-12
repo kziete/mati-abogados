@@ -18,12 +18,15 @@ include_once 'class/DaoUsuario.php';
             echo '<li>';
             echo '<a href="atencion.php">Atenciones</a>';
             echo '</li>';
+            echo '<li>';
+            echo '<a href="Login.php">Logout</a>';
+            echo '</li>';
             echo '</ul>';
             echo '</div>';
         }
-        
-        function menuGerente(){
-             echo '<div>';
+
+        function menuGerente() {
+            echo '<div>';
             echo '<ul>';
             echo '<li>';
             echo '<a href="cliente.php">Cliente</a>';
@@ -34,10 +37,13 @@ include_once 'class/DaoUsuario.php';
             echo '<li>';
             echo '<a href="atencion.php">Atenciones</a>';
             echo '</li>';
+            echo '<li>';
+            echo '<a href="Login.php">Logout</a>';
+            echo '</li>';
             echo '</ul>';
             echo '</div>';
         }
-        
+
         function menuSecretaria() {
             echo '<div>';
             echo '<ul>';
@@ -50,11 +56,14 @@ include_once 'class/DaoUsuario.php';
             echo '<li>';
             echo '<a href="atencion.php">Atenciones</a>';
             echo '</li>';
+            echo '<li>';
+            echo '<a href="Login.php">Logout</a>';
+            echo '</li>';
             echo '</ul>';
             echo '</div>';
         }
-        
-        function menuAdministrador(){
+
+        function menuAdministrador() {
             echo '<div>';
             echo '<ul>';
             echo '<li>';
@@ -66,10 +75,16 @@ include_once 'class/DaoUsuario.php';
             echo '<li>';
             echo '<a href="usuario.php">Usuario</a>';
             echo '</li>';
+            echo '<li>';
+            echo '<a href="#">falle</a>';
+            echo '</li>';
+            echo '<li>';
+            echo '<a href="Login.php">Logout</a>';
+            echo '</li>';
             echo '</ul>';
             echo '</div>';
         }
-        
+
         session_start();
         if (!isset($_SESSION['userid'])) {
             header("location:Login.php");
