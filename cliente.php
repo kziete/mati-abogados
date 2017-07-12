@@ -44,6 +44,9 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
+        <?php
+        if($user->getTipo_usuario() == 3 || $user->getTipo_usuario() == 4 || $user->getTipo_usuario() == 5){
+            ?>
         <div>
             Listar
             <div>
@@ -78,6 +81,7 @@ and open the template in the editor.
                 </div>
             </div>
         </div>
+        <?php }?>
         <div>
             Consultar
 
