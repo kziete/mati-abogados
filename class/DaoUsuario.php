@@ -1,7 +1,7 @@
 <?php
 
-include_once '/Cl_Usuario.php';
-include_once '/Cl_Conexion.php';
+include_once 'Cl_Usuario.php';
+include_once 'Cl_Conexion.php';
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
