@@ -17,14 +17,14 @@ class DaoAtencion {
     
     private $conexion;
 
-     function __construct() {
+    function __construct() {
         try {
             $this->conexion = new Cl_Conexion();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
-    
+
     public function guardar($atencion) {
         try {
             $sql = "CALL INSERTAR_ATENCION(null,'@2',@4,@5,@6);";
@@ -60,6 +60,19 @@ class DaoAtencion {
         }
     }
 
+    public function eliminar2($id) {
+        try {
+            $sql = "CALL ELIMINAR('@1','@2','@3');";
+            str_replace("@1", "atencion", $sql);
+            str_replace("@2", "numeroAtencion_id", $sql);
+            str_replace("@3", $id, $sql);
+            $resp = $this->conexion->query($sql);
+            return $resp;
+        } catch (Exception $ex) {
+            $traza = new Cl_Traza($exc->getTraceAsString());
+        }
+    }
+    
     public function eliminar($id) {
         try {
             $sql = "CALL ELIMINAR('@1','@2','@3');";

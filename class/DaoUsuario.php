@@ -39,7 +39,7 @@ class DaoUsuario {
         }
     }
 
-    public function listar() {
+    public function listar2() {
         try {
             $sql = "CALL LISTAR('@1');";
             str_replace("@1", "usuario", $sql);
@@ -49,24 +49,44 @@ class DaoUsuario {
             $traza = new Cl_Traza($exc->getTraceAsString());
         }
     }
-    
-     public function listar_tipUsuario() {
+
+    public function listar() {
         try {
-            $sql = "SELECT * FROM TIPO_USUARIO;";
-            $resp = $this->conexion->query($sql);
+            $sql = "SELECT * FROM USUARIO;";
+            $resp = $this->conexion->sqlSeleccion($sql);
             return $resp;
         } catch (Exception $exc) {
             $traza = new Cl_Traza($exc->getTraceAsString());
         }
     }
 
-    public function eliminar($id) {
+    public function listar_tipUsuario() {
+        try {
+            $sql = "SELECT * FROM TIPO_USUARIO;";
+            $resp = $this->conexion->sqlSeleccion($sql);
+            return $resp;
+        } catch (Exception $exc) {
+            $traza = new Cl_Traza($exc->getTraceAsString());
+        }
+    }
+
+    public function eliminar2($id) {
         try {
             $sql = "CALL ELIMINAR('@1','@2','@3');";
             str_replace("@1", "usuario", $sql);
             str_replace("@2", "usuario_id", $sql);
             str_replace("@3", $id, $sql);
             $resp = $this->conexion->query($sql);
+            return $resp;
+        } catch (Exception $ex) {
+            $traza = new Cl_Traza($exc->getTraceAsString());
+        }
+    }
+
+    public function eliminar($id) {
+        try {
+            $sql = "DELETE FROM USUARIO WHERE USUARIO_ID =$id;";
+            $resp = $this->conexion->sqlOperaciones($sql);
             return $resp;
         } catch (Exception $ex) {
             $traza = new Cl_Traza($exc->getTraceAsString());
@@ -98,7 +118,7 @@ class DaoUsuario {
         try {
             $sql = "SELECT * FROM usuario WHERE rut='$rut' AND password='$pass';";
             $resp = $this->conexion->sqlSeleccion($sql);
-            if($resp){
+            if ($resp) {
                 while ($row = mysqli_fetch_array($resp)) {
                     print_r($row);
                     $usuario = new Cl_Usuario();
@@ -111,7 +131,6 @@ class DaoUsuario {
                     return $usuario;
                 }
             }
-                
         } catch (Exception $ex) {
             $traza = new Cl_Traza($exc->getTraceAsString());
         }
