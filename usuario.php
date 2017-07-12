@@ -31,6 +31,8 @@ and open the template in the editor.
                                         <tr>
                                             <td>Rut:</td>
                                             <td><input type="text" name="txtRut" required="" class="btn-warning"></td>
+                                            <td>-</td>
+                                            <td><input type="text" name="txtVer" required="" class="btn-warning"></td>
                                         </tr>
                                         <tr>
                                             <td>Password:</td>

@@ -15,25 +15,31 @@ if (isset($_POST["usuario"])) {
 
     function guardarUsuario() {
         $rut = $_POST["txtRut"];
+        $verificar = $_POST["txtVer"];
         $pass = $_POST["txtPassword"];
         $nombre = $_POST["txtNombre"];
         $tipo = $_POST["cboTipoUsuario"];
 
         $dao = new DaoUsuario();
-        $usuario = new Cl_Usuario();
-        $usuario->setRut($rut);
-        $usuario->setPassword($pass);
-        $usuario->setNombre_completo($nombre);
-        $usuario->setTipo_usuario($tipo);
 
-        $resp = $dao->guardar($usuario);
-        if ($resp > 0) {
-            echo 'Grabado';
+        if ($dao->verificar($rut) == $verificar) {
+            $usuario = new Cl_Usuario();
+            $usuario->setRut($rut . '-' . $verificar);
+            $usuario->setPassword($pass);
+            $usuario->setNombre_completo($nombre);
+            $usuario->setTipo_usuario($tipo);
+
+            $resp = $dao->guardar($usuario);
+            if ($resp > 0) {
+                echo 'Grabado';
+            } else {
+                echo 'No grabo';
+            }
+            echo '<br>';
+            echo '<a href="usuario.php">Volver<a>';
         } else {
-            echo 'No grabo';
+            echo 'el Rut no coincide';
         }
-        echo '<br>';
-        echo '<a href="usuario.php">Volver<a>';
     }
 
     function eliminarUsuario() {
@@ -276,7 +282,7 @@ if (isset($_POST["atencion"])) {
         $estado = $_POST["txtAtencion"];
         $dao = new DaoAtencion();
 
-        $resp = $dao->cambiarEstado($estado,$id);
+        $resp = $dao->cambiarEstado($estado, $id);
         if ($resp > 0) {
             echo 'Cambio Exitoso';
         } else {
