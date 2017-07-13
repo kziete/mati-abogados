@@ -55,13 +55,47 @@ if (isset($_POST["usuario"])) {
         echo '<br>';
         echo '<a href="usuario.php">Volver<a>';
     }
+    
+    function consultarUsuario() {
+        $id = $_POST["txtConsultar"];
+        $dao = new DaoUsuario();
 
+        $resp = $dao->consultar($id);
+        if ($resp != null) {
+            echo '<table border="1">';
+            echo '<tr>';
+            echo '<td>Id Usuario:</td>';
+            echo '<td>Rut:</td>';
+            echo '<td>Password:</td>';
+            echo '<td>Nombre Completo:</td>';
+            echo '<td>Fecha Registro:</td>';
+            echo '<td>Tipo Usuario:</td>';
+            echo '</tr>';
+            while ($row = mysqli_fetch_array($resp)) {
+                echo '<tr>';
+                echo '<td>' . $row[0] . '</td>';
+                echo '<td>' . $row[1] . '</td>';
+                echo '<td>' . $row[2] . '</td>';
+                echo '<td>' . $row[3] . '</td>';
+                echo '<td>' . $row[4] . '</td>';
+                echo '<td>' . $row[5] . '</td>';
+                echo '</tr>';
+            };
+        } else {
+            echo 'No Existe Ese Usuario';
+        }
+        echo '<br>';
+        echo '<a href="usuario.php">Volver<a>';
+    }
     switch ($accion) {
         case "Guardar":
             guardarUsuario();
             break;
         case "Eliminar":
             EliminarUsuario();
+            break;
+        case "Consultar":
+            consultarUsuario();
             break;
     }
 }
@@ -110,7 +144,6 @@ if (isset($_POST["cliente"])) {
     function consultarCliente() {
         $id = $_POST["txtConsultar"];
         $dao = new DaoCliente();
-
         $resp = $dao->consultar($id);
         if ($resp != null) {
             echo '<table border="1">';

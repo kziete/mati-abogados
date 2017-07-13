@@ -124,5 +124,15 @@ class DaoUsuario {
             $traza = new Cl_Traza($exc->getTraceAsString());
         }
     }
+    
+     public function consultar($id) {
+        try {
+            $sql = "SELECT * FROM USUARIO WHERE USUARIO_ID =$id;";
+            $resp = $this->conexion->sqlSeleccion($sql);
+            return $resp;
+        } catch (Exception $ex) {
+            $traza = new Cl_Traza($exc->getTraceAsString());
+        }
+    }
 
 }
