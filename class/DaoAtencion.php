@@ -28,7 +28,9 @@ class DaoAtencion {
 
     public function guardar($atencion) {
         try {
-            $sql = "INSERT INTO ATENCION VALUES(null,'AGENDADA',CURRENT_DATE(),@4,@5,@6);";
+            $sql = "INSERT INTO ATENCION VALUES(null,'AGENDADA','@7',@4,@5,@6);";
+            
+            $sql = str_replace("@7", $atencion->getFecha(), $sql);
             $sql = str_replace("@4", $atencion->getHora(), $sql);
             $sql = str_replace("@5", $atencion->getCliente(), $sql);
             $sql = str_replace("@6", $atencion->getAbogado(), $sql);
@@ -81,7 +83,7 @@ class DaoAtencion {
     
      public function cambiarEstadoPerdida($id) {
         try {
-            $sql = "UPDATE ATENCION SET ESTATUS='PERDIDA' WHERE NUMEROATENCION_ID=$id AND WHERE ESTATUS='CONFIRMADA';";
+            $sql = "UPDATE ATENCION SET ESTATUS='PERDIDA' WHERE NUMEROATENCION_ID=$id AND ESTATUS='CONFIRMADA';";
             $resp = $this->conexion->sqlOperaciones($sql);
             return $resp;
         } catch (Exception $exc) {
@@ -91,7 +93,7 @@ class DaoAtencion {
     
     public function cambiarEstadoAnulada($id) {
         try {
-            $sql = "UPDATE ATENCION SET ESTATUS='ANULADA' WHERE NUMEROATENCION_ID=$id AND WHERE ESTATUS='AGENDADA';";
+            $sql = "UPDATE ATENCION SET ESTATUS='ANULADA' WHERE NUMEROATENCION_ID=$id AND ESTATUS='AGENDADA';";
             $resp = $this->conexion->sqlOperaciones($sql);
             return $resp;
         } catch (Exception $exc) {

@@ -292,12 +292,14 @@ if (isset($_POST["atencion"])) {
         $hora = $_POST["txtHora"];
         $cliente = $_POST["txtCliente"];
         $abogado = $_POST["txtAbogado"];
+        $fecha = $_POST["txtFecha"];
 
         $dao = new DaoAtencion();
         $atencion = new Cl_Atencion();
         $atencion->setHora($hora);
         $atencion->setCliente($cliente);
         $atencion->setAbogado($abogado);
+        $atencion->setFecha($fecha);
 
         $resp = $dao->guardar($atencion);
         if ($resp > 0) {

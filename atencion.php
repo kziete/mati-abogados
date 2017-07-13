@@ -66,6 +66,10 @@ and open the template in the editor.
                                                 </td>
                                             </tr>
                                             <tr>
+                                                <td>Fecha:</td>
+                                                <td><input type="date" name="txtFecha" required="" class="btn-warning"></td>
+                                            </tr>
+                                            <tr>
                                                 <td colspan="2"><input type="submit" name="atencion" value="Guardar" class="btn-warning"></td>
                                             </tr>
                                         </table>
@@ -112,16 +116,16 @@ and open the template in the editor.
                                                 echo '<td>' . $row[0] . '</td>';
                                                 echo '<td>' . $row[1] . '</td>';
                                                 if ($dias == 2) {
-                                                    $estado = '<td>Confirmar Atencion tutoria</td>';
+                                                    $estado = '<td>Confirmar Atencion</td>';
                                                 }
                                                 if ($dias == 1) {
-                                                    $dao->cambiarEstado("ANULADO", $row[0]);
+                                                    $dao->cambiarEstadoAnulada($row[0]);
                                                     $estado = '<td>Atencion Anulada</td>';
                                                 }
 
                                                 if ($dias <= -1) {
                                                      $dao->cambiarEstadoPerdida($row[0]);
-                                                    $estado = '<td>Tutoria Perdida</td>';
+                                                    $estado = '<td>Atencion Perdida</td>';
                                                 }
                                                 echo $estado;
                                                 echo '<td>' . $row[2] . '</td>';
