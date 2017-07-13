@@ -1,6 +1,8 @@
 <?php
 include_once './class/Cl_Usuario.php';
 include_once './controlador/DaoAbogado.php';
+include_once './class/DaoUsuario.php';
+
 ?>
 <!DOCTYPE html>
 <!--
@@ -29,6 +31,22 @@ and open the template in the editor.
                                 <div>
                                     <form action="proceso.php" method="post">
                                         <table>
+                                            <tr>
+                                                <td>Usuario</td>
+                                                <td>
+                                                    <select name="txtId" class="btn-warning">
+                                                        <?php
+                                                        $var = new DaoUsuario();
+                                                        $var = $var->listar();
+                                                        while ($rows = mysqli_fetch_array($var)) {
+                                                            ?>
+                                                            <option value="<?php echo $rows[0] ?>"> <?php echo $rows[3]; ?></option>   
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </select> 
+                                                </td>
+                                            </tr>
                                             <tr>
                                                 <td>Especialidad:</td>
                                                 <td><input type="text" name="txtEspecialidad" required="" class="btn-warning"></td>
@@ -159,7 +177,7 @@ and open the template in the editor.
                 <?php } ?>
             </body>
         </header>
-    <?php
+        <?php
     } else {
         header("location:Login.php");
     }

@@ -17,26 +17,28 @@ class DaoAbogado {
 
     private $conexion;
 
-     function __construct() {
+    function __construct() {
         try {
             $this->conexion = new Cl_Conexion();
         } catch (Exception $exc) {
             echo $exc->getTraceAsString();
         }
     }
-    
-     public function guardar($abogado) {
+
+    public function guardar($abogado) {
         try {
-            $sql = "INSERT INTO ABOGADO VALUES(null,'@2',@3,'ACTIVO');";
+            $sql = "INSERT INTO ABOGADO VALUES(null,@4,'@2',@3,'ACTIVO');";
+            $sql = str_replace("@4", $abogado->getId_abogado(), $sql);
             $sql = str_replace("@2", $abogado->getEspecialidad(), $sql);
             $sql = str_replace("@3", $abogado->getValorHora(), $sql);
+            echo 'query'.$sql;
             $resp = $this->conexion->sqlOperaciones($sql);
             return $resp;
         } catch (Exception $exc) {
             $traza = new Cl_Traza($exc->getTraceAsString());
         }
     }
-    
+
     public function listar() {
         try {
             $sql = "SELECT * FROM ABOGADO;";
@@ -49,31 +51,32 @@ class DaoAbogado {
 
     public function eliminar($id) {
         try {
-            $sql = "DELETE FROM ABOGADO WHERE ABOGADO_ID_USUARIO=$id;";
+            $sql = "DELETE FROM ABOGADO WHERE ID_ABOGADO=$id;";
             $resp = $this->conexion->sqlOperaciones($sql);
             return $resp;
         } catch (Exception $ex) {
             $traza = new Cl_Traza($exc->getTraceAsString());
         }
     }
-    
+
     public function despedir($id) {
         try {
-            $sql = "UPDATE ABOGADO SET ESTATUS='DESPEDIDO' WHERE ABOGADO_ID_USUARIO=$id;";
+            $sql = "UPDATE ABOGADO SET ESTATUS='DESPEDIDO' WHERE ID_ABOGADO=$id;";
             $resp = $this->conexion->sqlOperaciones($sql);
             return $resp;
         } catch (Exception $ex) {
             $traza = new Cl_Traza($exc->getTraceAsString());
         }
     }
-    
-    public function consultar($id){
-        try{
-            $sql = "SELECT * FROM ABOGADO WHERE ABOGADO_ID_USUARIO=$id;";
+
+    public function consultar($id) {
+        try {
+            $sql = "SELECT * FROM ABOGADO WHERE ID_ABOGADO=$id;";
             $resp = $this->conexion->sqlSeleccion($sql);
             return $resp;
         } catch (Exception $ex) {
             $traza = new Cl_Traza($exc->getTraceAsString());
         }
     }
+
 }

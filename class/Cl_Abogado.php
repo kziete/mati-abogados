@@ -12,7 +12,8 @@
  * @author LC1300XXXX
  */
 class Cl_Abogado {
-    
+
+    private $id_abogado;
     private $abogado_id;
     private $especialidad;
     private $valorHora;
@@ -43,6 +44,14 @@ class Cl_Abogado {
 
     function setValorHora($valorHora) {
         $this->valorHora = $valorHora;
+    }
+
+    function getId_abogado() {
+        return $this->id_abogado;
+    }
+
+    function setId_abogado($id_abogado) {
+        $this->id_abogado = $id_abogado;
     }
 
 

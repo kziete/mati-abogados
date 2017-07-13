@@ -77,7 +77,7 @@ if (isset($_POST["cliente"])) {
         $dao = new DaoCliente();
         $cliente = new Cl_Cliente();
         $cliente->setTipoPersona($tipoPersona);
-        $var =base64_encode($direccion);
+        $var = base64_encode($direccion);
         $cliente->setDireccion($var);
         $cliente->setTelefono($telefono);
 
@@ -121,9 +121,11 @@ if (isset($_POST["abogado"])) {
     function guardarAbogado() {
         $especialidad = $_POST["txtEspecialidad"];
         $valorHora = $_POST["txtValorHora"];
+        $id = $_POST["txtId"];
 
         $dao = new DaoAbogado();
         $abogado = new Cl_Abogado();
+        $abogado->setId_abogado($id);
         $abogado->setEspecialidad($especialidad);
         $abogado->setValorHora($valorHora);
 
@@ -133,6 +135,7 @@ if (isset($_POST["abogado"])) {
         } else {
             echo 'No grabo';
         }
+
         echo '<br>';
         echo '<a href="abogado.php">Volver<a>';
     }
