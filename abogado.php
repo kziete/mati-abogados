@@ -80,7 +80,8 @@ and open the template in the editor.
                                         if ($resultado != null) {
                                             echo '<table border="1">';
                                             echo '<tr>';
-                                            echo '<td>Id:</td>';
+                                            echo '<td>Id Abogado:</td>';
+                                            echo '<td>Nombre Completo:</td>';
                                             echo '<td>Especialida:</td>';
                                             echo '<td>Valor Hora:</td>';
                                             echo '<td>Estatus:</td>';
@@ -91,6 +92,7 @@ and open the template in the editor.
                                                 echo '<td>' . $row[1] . '</td>';
                                                 echo '<td>' . $row[2] . '</td>';
                                                 echo '<td>' . $row[3] . '</td>';
+                                                echo '<td>' . $row[4] . '</td>';
                                                 echo '</tr>';
                                             }
                                         } else {

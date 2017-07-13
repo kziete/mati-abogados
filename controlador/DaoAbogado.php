@@ -31,7 +31,6 @@ class DaoAbogado {
             $sql = str_replace("@4", $abogado->getId_abogado(), $sql);
             $sql = str_replace("@2", $abogado->getEspecialidad(), $sql);
             $sql = str_replace("@3", $abogado->getValorHora(), $sql);
-            echo 'query'.$sql;
             $resp = $this->conexion->sqlOperaciones($sql);
             return $resp;
         } catch (Exception $exc) {
@@ -41,7 +40,7 @@ class DaoAbogado {
 
     public function listar() {
         try {
-            $sql = "SELECT * FROM ABOGADO;";
+            $sql = "SELECT abogado.id_abogado ,usuario.nombre_completo,abogado.especialidad,abogado.`valorHora`,abogado.estatus FROM ABOGADO INNER JOIN usuario ON abogado.abogado_id_usuario = usuario.usuario_id;";
             $resp = $this->conexion->sqlSeleccion($sql);
             return $resp;
         } catch (Exception $exc) {
