@@ -12,18 +12,15 @@
  * @author Matito
  */
 class Cl_Cliente {
-    
+
+    private $id_cliente;
     private $cliente_id;
     private $tipoPersona;
     private $direccion;
     private $telefono;
-    
-    function __construct(){
+
+    function __construct() {
         
-    }
-            
-    function getIdCliente() {
-        return $this->idCliente;
     }
 
     function getTipoPersona() {
@@ -38,10 +35,6 @@ class Cl_Cliente {
         return $this->telefono;
     }
 
-    function setIdCliente($idCliente) {
-        $this->idCliente = $idCliente;
-    }
-
     function setTipoPersona($tipoPersona) {
         $this->tipoPersona = $tipoPersona;
     }
@@ -52,6 +45,22 @@ class Cl_Cliente {
 
     function setTelefono($telefono) {
         $this->telefono = $telefono;
+    }
+
+    function getId_cliente() {
+        return $this->id_cliente;
+    }
+
+    function getCliente_id() {
+        return $this->cliente_id;
+    }
+
+    function setId_cliente($id_cliente) {
+        $this->id_cliente = $id_cliente;
+    }
+
+    function setCliente_id($cliente_id) {
+        $this->cliente_id = $cliente_id;
     }
 
 }

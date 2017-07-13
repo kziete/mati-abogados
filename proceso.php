@@ -70,12 +70,14 @@ if (isset($_POST["cliente"])) {
     $accion = $_POST["cliente"];
 
     function guardarCliente() {
+        $id = $_POST["txtId"];
         $tipoPersona = $_POST["txtTipoPersona"];
         $direccion = $_POST["txtDireccion"];
         $telefono = $_POST["txtTelefono"];
 
         $dao = new DaoCliente();
         $cliente = new Cl_Cliente();
+        $cliente->setCliente_id($id);
         $cliente->setTipoPersona($tipoPersona);
         $var = base64_encode($direccion);
         $cliente->setDireccion($var);
@@ -104,6 +106,36 @@ if (isset($_POST["cliente"])) {
         echo '<br>';
         echo '<a href="cliente.php">Volver<a>';
     }
+    
+    function consultarCliente() {
+        $id = $_POST["txtConsultar"];
+        $dao = new DaoCliente();
+
+        $resp = $dao->consultar($id);
+        if ($resp != null) {
+            echo '<table border="1">';
+            echo '<tr>';
+            echo '<td>Id Abogado:</td>';
+            echo '<td>Nombre Completo:</td>';
+            echo '<td>Especialida:</td>';
+            echo '<td>Valor Hora:</td>';
+            echo '<td>Estatus:</td>';
+            echo '</tr>';
+            while ($row = mysqli_fetch_array($resp)) {
+                echo '<tr>';
+                echo '<td>' . $row[0] . '</td>';
+                echo '<td>' . $row[1] . '</td>';
+                echo '<td>' . $row[2] . '</td>';
+                echo '<td>' . $row[3] . '</td>';
+                echo '<td>' . $row[4] . '</td>';
+                echo '</tr>';
+            };
+        } else {
+            echo 'No Existe Ese Cliente';
+        }
+        echo '<br>';
+        echo '<a href="cliente.php">Volver<a>';
+    }
 
     switch ($accion) {
         case "Guardar":
@@ -111,6 +143,9 @@ if (isset($_POST["cliente"])) {
             break;
         case "Eliminar":
             EliminarCliente();
+            break;
+        case "Consultar":
+            consultarCliente();
             break;
     }
 }
@@ -162,7 +197,8 @@ if (isset($_POST["abogado"])) {
         if ($resp != null) {
             echo '<table border="1">';
             echo '<tr>';
-            echo '<td>Id:</td>';
+            echo '<td>Id Abogado:</td>';
+            echo '<td>Nombre Completo:</td>';
             echo '<td>Especialida:</td>';
             echo '<td>Valor Hora:</td>';
             echo '<td>Estatus:</td>';
@@ -173,6 +209,7 @@ if (isset($_POST["abogado"])) {
                 echo '<td>' . $row[1] . '</td>';
                 echo '<td>' . $row[2] . '</td>';
                 echo '<td>' . $row[3] . '</td>';
+                echo '<td>' . $row[4] . '</td>';
                 echo '</tr>';
             };
         } else {
