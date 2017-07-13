@@ -102,7 +102,7 @@ class DaoAtencion {
 
     public function listar_cliente() {
         try {
-            $sql = "SELECT cliente.cliente_id_usuario, usuario.nombre_completo FROM cliente INNER JOIN usuario ON cliente.cliente_id_usuario = usuario.usuario_id WHERE cliente.estatus='ACTIVO';";
+            $sql = "SELECT cliente.id_cliente, usuario.nombre_completo FROM cliente INNER JOIN usuario ON cliente.cliente_id_usuario = usuario.usuario_id WHERE cliente.estatus='ACTIVO';";
             $resp = $this->conexion->sqlSeleccion($sql);
             return $resp;
         } catch (Exception $exc) {
@@ -112,7 +112,7 @@ class DaoAtencion {
 
     public function listar_abogado() {
         try {
-            $sql = "SELECT abogado.abogado_id_usuario, usuario.nombre_completo FROM abogado INNER JOIN usuario ON abogado.abogado_id_usuario = usuario.usuario_id WHERE abogado.estatus='ACTIVO';";
+            $sql = "SELECT abogado.id_abogado, usuario.nombre_completo FROM abogado INNER JOIN usuario ON abogado.abogado_id_usuario = usuario.usuario_id WHERE abogado.estatus='ACTIVO';";
             $resp = $this->conexion->sqlSeleccion($sql);
             return $resp;
         } catch (Exception $exc) {

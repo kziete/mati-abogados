@@ -82,7 +82,7 @@ include_once '/class/DaoUsuario.php';
                             $var = $_SESSION['userid'];
                             ?>
                             <li>
-                                <a href="#"><?php echo $var->getNombre_completo() ?></a>
+                                <a href="index2.php"><?php echo $var->getNombre_completo() ?></a>
                             </li>
                             <li>
                                 <a class="page-scroll" href="Login.php">Logout</a>

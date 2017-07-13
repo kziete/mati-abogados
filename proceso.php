@@ -331,10 +331,12 @@ if (isset($_POST["atencion"])) {
         if ($resp != null) {
             echo '<table border="1">';
             echo '<tr>';
-            echo '<td>Id:</td>';
-            echo '<td>Especialida:</td>';
-            echo '<td>Valor Hora:</td>';
+            echo '<td>Id Atencion:</td>';
             echo '<td>Estatus:</td>';
+            echo '<td>Fecha:</td>';
+            echo '<td>Hora:</td>';
+            echo '<td>Cliente Id:</td>';
+            echo '<td>Abogado Id:</td>';
             echo '</tr>';
             while ($row = mysqli_fetch_array($resp)) {
                 echo '<tr>';
@@ -342,6 +344,8 @@ if (isset($_POST["atencion"])) {
                 echo '<td>' . $row[1] . '</td>';
                 echo '<td>' . $row[2] . '</td>';
                 echo '<td>' . $row[3] . '</td>';
+                echo '<td>' . $row[4] . '</td>';
+                echo '<td>' . $row[5] . '</td>';
                 echo '</tr>';
             };
         } else {

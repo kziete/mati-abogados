@@ -9,7 +9,7 @@ and open the template in the editor.
     <body clas="index">
         <?php include 'header.php'; ?>
         <div class="container">
-            <h3>Home</h3>
+            <a href="index.php"><h3>Home</h3></a>
         </div>
     </body>
 </html>
